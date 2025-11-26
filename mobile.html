@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>R&I Digital — мобильная версия</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="R&I Digital — минималистичные сайты: лендинги, портфолио и мини‑сервисы. Мобильная версия.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #f5f5f7;
+            --card: #ffffff;
+            --text-main: #111111;
+            --text-muted: #6e6e73;
+            --border-soft: #d2d2d7;
+            --accent: #0071e3;
+            --accent-green: #34c759;
+            --accent-red: #ff3b30;
+        }
+        :root[data-theme="dark"] {
+            --bg: #050509;
+            --card: #111118;
+            --text-main: #f5f5f7;
+            --text-muted: #a1a1aa;
+            --border-soft: rgba(255,255,255,0.16);
+            --accent: #0a84ff;
+            --accent-green: #30d158;
+            --accent-red: #ff453a;
+        }
+        :root[data-theme="dark"] body {
+            background: radial-gradient(circle at top, #050509 0, #050509 60%, #050509 100%);
+        }
+        :root[data-theme="dark"] header {
+            background: rgba(5,5,9,0.92);
+            border-bottom: 1px solid rgba(255,255,255,0.10);
+        }
+        :root[data-theme="dark"] .card {
+            background: rgba(17,17,24,0.96);
+        }
+        :root[data-theme="dark"] footer {
+            border-top: 1px solid rgba(255,255,255,0.10);
+        }
+
+
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+        }
+
+        .page {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 18px 16px 48px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(16px);
+            background: rgba(245,245,247,0.9);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .header-inner {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-switch {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px;
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        :root[data-theme="dark"] .lang-switch {
+            background: rgba(15,15,20,0.9);
+        }
+
+        .lang-btn {
+            border-radius: 999px;
+            border: none;
+            background: transparent;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--accent);
+            color: #ffffff;
+            box-shadow: 0 3px 8px rgba(0,113,227,0.35);
+        }
+
+        .theme-toggle-btn {
+            border: none;
+            background: transparent;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 6px 8px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-mark {
+            height: 30px;
+            width: auto;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .logo-name {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+        }
+
+        .logo-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .theme-toggle {
+            font-size: 11px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            background: transparent;
+            color: var(--text-main);
+        }
+
+        main section {
+            margin-top: 32px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            font-size: 11px;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.9);
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent-green);
+        }
+
+        .hero-title {
+            margin-top: 14px;
+            font-size: 26px;
+            line-height: 1.12;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-sub {
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .hero-sub strong {
+            color: var(--text-main);
+        }
+
+        .hero-tags {
+            margin-top: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .hero-tag {
+            font-size: 11px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            background: var(--card);
+            color: var(--text-muted);
+        }
+
+        .hero-tag-primary {
+            border-color: var(--accent);
+        }
+        .hero-tag-red {
+            border-color: var(--accent-red);
+        }
+        .hero-tag-green {
+            border-color: var(--accent-green);
+        }
+
+        .hero-actions {
+            margin-top: 16px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            border-radius: 999px;
+            padding: 10px 18px;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            background: var(--accent);
+            color: #ffffff;
+        }
+
+        .hero-note {
+            margin-top: 8px;
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hero-note-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-green);
+        }
+
+        .card {
+            border-radius: 20px;
+            border: 1px solid var(--border-soft);
+            background: rgba(255,255,255,0.95);
+            padding: 14px 14px 12px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-index {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            background: var(--card);
+        }
+
+        .section-title {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .section-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .hero-formats {
+            margin-top: 18px;
+            display: grid;
+            gap: 10px;
+        }
+
+        .format-card {
+            border-radius: 16px;
+            border: 1px solid var(--border-soft);
+            background: var(--card);
+            padding: 10px 11px;
+        }
+
+        .format-title {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .format-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .format-tags {
+            margin-top: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .format-tag {
+            font-size: 11px;
+            padding: 2px 7px;
+            border-radius: 999px;
+            background: #f0f0f3;
+            color: var(--text-muted);
+        }
+
+        .about-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        .about-text p + p {
+            margin-top: 8px;
+        }
+
+        .about-text strong {
+            color: var(--text-main);
+        }
+
+        .about-list {
+            margin-top: 10px;
+            display: grid;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .about-item-title {
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .projects-list {
+            display: grid;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .project {
+            border-radius: 16px;
+            border: 1px solid var(--border-soft);
+            background: var(--card);
+            padding: 10px 11px;
+        }
+
+        .project-title {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .project-type {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .project-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .project-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .steps {
+            display: grid;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: 24px minmax(0, 1fr);
+            gap: 8px;
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .step-title {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .step-text {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .faq-list {
+            display: grid;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .faq-q {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .faq-a {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .contact-fields {
+            display: grid;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .field-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 3px;
+        }
+
+        .field-input,
+        .field-textarea {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid var(--border-soft);
+            background: #f9f9fb;
+            padding: 8px 10px;
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .field-textarea {
+            min-height: 70px;
+            resize: vertical;
+        }
+
+        .contact-hint {
+            margin-top: 6px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        footer {
+            margin-top: 28px;
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+            padding-top: 10px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <div class="logo">
+            <img src="ri-logo.png" alt="R&I Digital логотип" class="logo-mark">
+            <div class="logo-text">
+                <div class="logo-name">R&I DIGITAL</div>
+                <div class="logo-sub" id="logoSub">минималистичные сайты и цифровые решения</div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="lang-switch" aria-label="Переключить язык">
+                <button class="lang-btn active" type="button" data-lang="ru">RU</button>
+                <button class="lang-btn" type="button" data-lang="en">EN</button>
+            </div>
+            <button class="theme-toggle-btn" id="themeToggle" type="button" aria-label="Переключить тему">🌙</button>
+        </div>
+    </div>
+    <p style="font-size:12px;color:#6e6e73;margin:4px 16px 0;">
+        Весь функционал доступен в веб-версии.
+    </p>
+</header>
+
+<main class="page">
+    <section id="top">
+        <div class="badge">
+            <div class="badge-dot"></div>
+            <span id="badgeText">Портфолио разработчика сайтов</span>
+        </div>
+
+        <h1 class="hero-title" id="heroTitle">
+            Я разрабатываю сайты, которые ясно формулируют ваше предложение.
+        </h1>
+
+        <p class="hero-sub" id="heroSub">
+            Разрабатываю лендинги, портфолио и мини‑сервисы. <strong>Полный цикл:</strong> структура, дизайн и адаптивная вёрстка в одних руках.
+        </p>
+
+        <div class="hero-tags">
+            <span class="hero-tag hero-tag-primary" id="heroTagLanding">лендинги под рекламу</span>
+            <span class="hero-tag hero-tag-red" id="heroTagPortfolio">портфолио</span>
+            <span class="hero-tag hero-tag-green" id="heroTagMicro">микросервисы</span>
+        </div>
+
+        <div class="hero-actions">
+            <button class="btn-primary" id="heroCta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                Обсудить проект →
+            </button>
+        </div>
+
+        <div class="hero-note">
+            <div class="hero-note-dot"></div>
+            <span id="heroNote">При необходимости можем начать с одного пилотного экрана.</span>
+        </div>
+    </section>
+
+    <section>
+        <div class="card">
+            <div class="section-label">
+                <span class="section-index">01</span>
+                <span id="formatsLabel">Форматы</span>
+            </div>
+            <h2 class="section-title" id="formatsTitle">Основные форматы работы</h2>
+            <p class="section-sub" id="formatsSub">
+                Три базовых типа решений, с которых чаще всего начинается сотрудничество.
+            </p>
+
+            <div class="hero-formats">
+                <div class="format-card">
+                    <div class="format-title" id="format1Title">Лендинг</div>
+                    <div class="format-sub" id="format1Sub">Одностраничное решение под одну чёткую цель.</div>
+                    <div class="format-tags">
+                        <span class="format-tag" id="format1Tag1">услуга</span>
+                        <span class="format-tag">реклама</span>
+                    </div>
+                </div>
+                <div class="format-card">
+                    <div class="format-title" id="format2Title">Портфолио</div>
+                    <div class="format-sub" id="format2Sub">Кто вы, чем занимаетесь и как с вами связаться.</div>
+                    <div class="format-tags">
+                        <span class="format-tag" id="format2Tag1">эксперты</span>
+                        <span class="format-tag" id="format2Tag2">фриланс</span>
+                    </div>
+                </div>
+                <div class="format-card">
+                    <div class="format-title" id="format3Title">Мини‑сервис</div>
+                    <div class="format-sub" id="format3Sub">Небольшой инструмент под конкретную задачу.</div>
+                    <div class="format-tags">
+                        <span class="format-tag" id="format3Tag1">JavaScript</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="card">
+            <div class="section-label">
+                <span class="section-index">02</span>
+                <span id="aboutLabel">Обо мне</span>
+            </div>
+            <h2 class="section-title" id="aboutTitle">Подход к разработке</h2>
+            <p class="section-sub" id="aboutSub">Строгая структура, понятная логика и отсутствие визуального шума.</p>
+
+            <div class="about-text">
+                <p id="aboutP1">Я создаю сайты, которые удобно читать и использовать. Каждый блок отвечает на конкретный вопрос пользователя: от первого заголовка до финальной кнопки.</p>
+                <p id="aboutP2">Вёрстка выполняется на чистых HTML, CSS и JavaScript с учётом корректного отображения на телефоне и ноутбуке.</p>
+            </div>
+
+            <div class="about-list">
+                <div>
+                    <div class="about-item-title" id="aboutTechTitle">Технологии</div>
+                    <div id="aboutTechText">HTML5, современный CSS, JavaScript, Git / GitHub.</div>
+                </div>
+                <div>
+                    <div class="about-item-title" id="aboutFocusTitle">Фокус</div>
+                    <div id="aboutFocusText">ясное предложение, логичная структура, одно ключевое действие.</div>
+                </div>
+                <div>
+                    <div class="about-item-title" id="aboutFormatTitle">Формат работы</div>
+                    <div id="aboutFormatText">короткие созвоны, промежуточные версии, без лишней бюрократии.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="card">
+            <div class="section-label">
+                <span class="section-index">03</span>
+                <span id="projectsLabel">Проекты</span>
+            </div>
+            <h2 class="section-title" id="projectsTitle">Форматы решений</h2>
+            <p class="section-sub" id="projectsSub">На их основе можно собрать сайт под практически любую нишу.</p>
+
+            <div class="projects-list">
+                <div class="project">
+                    <div class="project-title" id="proj1Title">Лендинг под услугу</div>
+                    <div class="project-type" id="proj1Type">Одностраничный сайт</div>
+                    <p class="project-desc" id="proj1Desc">Чёткий заголовок, выгоды и единая форма обращения без лишних элементов.</p>
+                    <div class="project-meta">
+                        <span id="proj1Meta1">Срок: 1–2 дня</span>
+                        <span id="proj1Meta2">HTML · CSS · JS</span>
+                    </div>
+                </div>
+                <div class="project">
+                    <div class="project-title" id="proj2Title">Сайт‑портфолио</div>
+                    <div class="project-type" id="proj2Type">Для эксперта или фрилансера</div>
+                    <p class="project-desc" id="proj2Desc">Структурированное представление опыта, услуг и контактной информации.</p>
+                    <div class="project-meta">
+                        <span id="proj2Meta1">Срок: 3–4 дня</span>
+                        <span id="proj2Meta2">multi‑page</span>
+                    </div>
+                </div>
+                <div class="project">
+                    <div class="project-title" id="proj3Title">Мини‑сервис</div>
+                    <div class="project-type" id="proj3Type">Функциональный модуль</div>
+                    <p class="project-desc" id="proj3Desc">Калькулятор, квиз или иной небольшой сервис под конкретную задачу.</p>
+                    <div class="project-meta">
+                        <span id="proj3Meta1">Срок: по задаче</span>
+                        <span id="proj3Meta2">JavaScript</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="card">
+            <div class="section-label">
+                <span class="section-index">04</span>
+                <span id="processLabel">Процесс</span>
+            </div>
+            <h2 class="section-title" id="processTitle">Этапы сотрудничества</h2>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <div class="step-title" id="step1Title">Формулировка задачи</div>
+                        <div class="step-text" id="step1Text">Определяем цель, формат и основные требования к проекту.</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <div class="step-title" id="step2Title">Структура и прототип</div>
+                        <div class="step-text" id="step2Text">Собираю каркас страниц и согласую логику расположения блоков.</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <div class="step-title" id="step3Title">Дизайн, вёрстка и запуск</div>
+                        <div class="step-text" id="step3Text">Разрабатываю интерфейс, настраиваю адаптивность и помогаю с публикацией.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="card">
+            <div class="section-label">
+                <span class="section-index">05</span>
+                <span id="faqLabel">FAQ</span>
+            </div>
+            <h2 class="section-title" id="faqTitle">Частые вопросы</h2>
+
+            <div class="faq-list">
+                <div>
+                    <div class="faq-q" id="faqQ1">Сколько итераций правок входит в работу?</div>
+                    <div class="faq-a" id="faqA1">В базовую стоимость входят два полноценных круга правок на каждом экране и финальная косметическая доработка перед запуском. Правки, которые не меняют заранее согласованную структуру и объём страниц, не требуют доплаты.</div>
+                </div>
+                <div>
+                    <div class="faq-q" id="faqQ2">Что нужно от клиента перед стартом?</div>
+                    <div class="faq-a" id="faqA2">На старте достаточно краткого описания задачи, информации о продукте и целевой аудитории. Если есть — присылаете логотип, фирменные цвета и примеры сайтов, которые вам нравятся. Тексты можно предоставить готовыми или в виде черновиков — я помогу их сократить и структурировать под формат сайта.</div>
+                </div>
+                <div>
+                    <div class="faq-q" id="faqQ3">Можно ли доработать уже существующий сайт?</div>
+                    <div class="faq-a" id="faqA3">Нет. Я не работаю с чужой кодовой базой и не дорабатываю сайты, собранные другими разработчиками или конструкторами. Доработка старого проекта часто занимает больше времени, чем создание нового решения с нуля, при этом сложно гарантировать стабильность, адаптивность и единый стиль.</div>
+                </div>
+                <div>
+                    <div class="faq-q" id="faqQ4">Как происходит оплата?</div>
+                    <div class="faq-a" id="faqA4">Перед началом работы фиксируем формат, сроки и итоговую стоимость. Стандартно — 50 % предоплата и 50 % после завершения проекта. Для небольших задач возможна оплата по факту.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="card">
+            <div class="section-label">
+                <span class="section-index">06</span>
+                <span id="contactLabel">Контакты</span>
+            </div>
+            <h2 class="section-title" id="contactTitle">Связаться по проекту</h2>
+            <p class="section-sub" id="contactSub">Краткого описания достаточно, чтобы предварительно оценить задачу.</p>
+
+            <form onsubmit="handleContact(event)">
+                <div class="contact-fields">
+                    <div>
+                        <div class="field-label" id="labelName">Имя / ник</div>
+                        <input class="field-input" id="name" type="text" placeholder="Как к вам обращаться" required>
+                    </div>
+                    <div>
+                        <div class="field-label" id="labelContact">Способ связи</div>
+                        <input class="field-input" id="contactField" type="text" placeholder="Telegram, WhatsApp или e-mail" required>
+                    </div>
+                    <div>
+                        <div class="field-label" id="labelMessage">Кратко о задаче</div>
+                        <textarea class="field-textarea" id="message" placeholder="Например: нужен лендинг под услугу" required></textarea>
+                    </div>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <button type="submit" class="btn-primary" id="contactBtn">Отправить запрос</button>
+                    <div class="contact-hint" id="contactStatus"></div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        © R&I DIGITAL · минималистичные сайты под вашу задачу.
+    </footer>
+
+<script>
+    var yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    var translations = {
+        ru: {
+            logoSub: 'минималистичные сайты и цифровые решения',
+            badgeText: 'Портфолио разработчика сайтов',
+            heroTitle: 'Я разрабатываю сайты, которые ясно формулируют ваше предложение.',
+            heroSub: 'Разрабатываю лендинги, портфолио и мини‑сервисы. <strong>Полный цикл:</strong> структура, дизайн и адаптивная вёрстка в одних руках.',
+            heroTagLanding: 'лендинги под рекламу',
+            heroTagPortfolio: 'портфолио',
+            heroTagMicro: 'микросервисы',
+            heroCta: 'Обсудить проект →',
+            heroNote: 'При необходимости можем начать с одного пилотного экрана.',
+
+            formatsLabel: 'Форматы',
+            formatsTitle: 'Основные форматы работы',
+            formatsSub: 'Три базовых типа решений, с которых чаще всего начинается сотрудничество.',
+            format1Title: 'Лендинг',
+            format1Sub: 'Одностраничное решение под одну чёткую цель.',
+            format1Tag1: 'услуга',
+            format1Tag2: 'продукт',
+            format2Title: 'Портфолио',
+            format2Sub: 'Кто вы, чем занимаетесь и как с вами связаться.',
+            format2Tag1: 'эксперты',
+            format2Tag2: 'фриланс',
+            format3Title: 'Мини‑сервис',
+            format3Sub: 'Небольшой инструмент под конкретную задачу.',
+            format3Tag1: 'JavaScript',
+
+            aboutLabel: 'Обо мне',
+            aboutTitle: 'Подход к разработке',
+            aboutSub: 'Строгая структура, понятная логика и отсутствие визуального шума.',
+            aboutP1: 'Я создаю сайты, которые удобно читать и использовать. Каждый блок отвечает на конкретный вопрос пользователя: от первого заголовка до финальной кнопки.',
+            aboutP2: 'Вёрстка выполняется на чистых HTML, CSS и JavaScript с учётом корректного отображения на телефоне и ноутбуке.',
+            aboutTechTitle: 'Технологии',
+            aboutTechText: 'HTML5, современный CSS, JavaScript, Git / GitHub.',
+            aboutFocusTitle: 'Фокус',
+            aboutFocusText: 'ясное предложение, логичная структура, одно ключевое действие.',
+            aboutFormatTitle: 'Формат работы',
+            aboutFormatText: 'короткие созвоны, промежуточные версии, без лишней бюрократии.',
+
+            projectsLabel: 'Проекты',
+            projectsTitle: 'Форматы решений',
+            projectsSub: 'На их основе можно собрать сайт под практически любую нишу.',
+            proj1Title: 'Лендинг под услугу',
+            proj1Type: 'Одностраничный сайт',
+            proj1Desc: 'Чёткий заголовок, выгоды и единая форма обращения без лишних элементов.',
+            proj1Meta1: 'Срок: 1–2 дня',
+            proj1Meta2: 'HTML · CSS · JS',
+            proj2Title: 'Сайт‑портфолио',
+            proj2Type: 'Для эксперта или фрилансера',
+            proj2Desc: 'Структурированное представление опыта, услуг и контактной информации.',
+            proj2Meta1: 'Срок: 3–4 дня',
+            proj2Meta2: 'multi‑page',
+            proj3Title: 'Мини‑сервис',
+            proj3Type: 'Функциональный модуль',
+            proj3Desc: 'Калькулятор, квиз или иной небольшой сервис под конкретную задачу.',
+            proj3Meta1: 'Срок: по задаче',
+            proj3Meta2: 'JavaScript',
+
+            processLabel: 'Процесс',
+            processTitle: 'Этапы сотрудничества',
+            step1Title: 'Формулировка задачи',
+            step1Text: 'Определяем цель, формат и основные требования к проекту.',
+            step2Title: 'Структура и прототип',
+            step2Text: 'Собираю каркас страниц и согласую логику расположения блоков.',
+            step3Title: 'Дизайн, вёрстка и запуск',
+            step3Text: 'Разрабатываю интерфейс, настраиваю адаптивность и помогаю с публикацией.',
+
+            faqLabel: 'FAQ',
+            faqTitle: 'Частые вопросы',
+            faqQ1: 'Сколько итераций правок входит в работу?',
+            faqA1: 'В базовую стоимость входят 2 круга правок по дизайну и содержанию. Небольшие корректировки текста и формулировок, которые не меняют согласованную структуру и объём страниц, не требуют доплаты.',
+            faqQ2: 'Что нужно от клиента перед стартом?',
+            faqA2: 'На старте достаточно краткого описания задачи и примеров сайтов, которые вам нравятся. Тексты и материалы можно подготовить вместе: я помогу их сократить и структурировать под формат сайта.',
+            faqQ3: 'Можно ли доработать уже существующий сайт?',
+            faqA3: 'Нет. Я не работаю с чужой вёрсткой, так как доработка старого проекта часто занимает больше времени, чем создание нового решения с нуля, при этом сложно гарантировать стабильность, адаптивность и единый стиль.',
+            faqQ4: 'Как происходит оплата?',
+            faqA4: 'Перед началом работы фиксируется стоимость и примерный срок выполнения проекта. Для небольших задач возможна оплата по факту.',
+
+            contactLabel: 'Контакты',
+            contactTitle: 'Связаться по проекту',
+            contactSub: 'Краткого описания достаточно, чтобы предварительно оценить задачу.',
+            labelName: 'Имя / ник',
+            labelContact: 'Контакт для связи',
+            labelMessage: 'Опишите задачу',
+            namePlaceholder: 'Как к вам обращаться',
+            contactPlaceholder: 'Telegram, WhatsApp или e-mail',
+            messagePlaceholder: 'Например: нужен лендинг под услугу',
+            contactBtn: 'Отправить запрос',
+            contactHintInitial: 'Будет открыт черновик письма.',
+            contactHintAfter: 'Будет открыт черновик письма. Если не открылся — напишите напрямую на почту.',
+
+            footerTagline: 'минималистичные сайты под вашу задачу.'
+        },
+        en: {
+            logoSub: 'Minimalist websites and digital solutions',
+            badgeText: 'Web developer portfolio',
+            heroTitle: 'I build websites that clearly communicate your offer.',
+            heroSub: 'I create landing pages, portfolios and micro‑services. <strong>Full cycle:</strong> structure, design and responsive layout in one pair of hands.',
+            heroTagLanding: 'ad‑ready landing pages',
+            heroTagPortfolio: 'portfolios',
+            heroTagMicro: 'micro‑services',
+            heroCta: 'Discuss the project →',
+            heroNote: 'If needed, we can start with one pilot screen.',
+
+            formatsLabel: 'Formats',
+            formatsTitle: 'Main formats of work',
+            formatsSub: 'Three basic types of solutions that usually start our collaboration.',
+            format1Title: 'Landing page',
+            format1Sub: 'One‑page solution focused on a single clear goal.',
+            format1Tag1: 'service',
+            format1Tag2: 'product',
+            format2Title: 'Portfolio site',
+            format2Sub: 'Who you are, what you do and how to contact you.',
+            format2Tag1: 'experts',
+            format2Tag2: 'freelance',
+            format3Title: 'Mini‑service',
+            format3Sub: 'A small tool for a specific task.',
+            format3Tag1: 'JavaScript',
+
+            aboutLabel: 'About',
+            aboutTitle: 'Approach to development',
+            aboutSub: 'Strict structure, clear logic and no visual noise.',
+            aboutP1: 'I create websites that are comfortable to read and use — from the first screen to the contact form.',
+            aboutP2: 'The layout is built with clean HTML, CSS and JavaScript, with correct display on both phones and laptops in mind.',
+            aboutTechTitle: 'Stack',
+            aboutTechText: 'HTML5, modern CSS, JavaScript, Git / GitHub.',
+            aboutFocusTitle: 'Focus',
+            aboutFocusText: 'clear offer, logical structure, one key action.',
+            aboutFormatTitle: 'Workflow',
+            aboutFormatText: 'short calls, intermediate versions, no extra bureaucracy.',
+
+            projectsLabel: 'Projects',
+            projectsTitle: 'Solution formats',
+            projectsSub: 'Based on them, we can assemble a website for almost any niche.',
+            proj1Title: 'Service landing page',
+            proj1Type: 'One‑page website',
+            proj1Desc: 'Clear headline, benefits and a single contact form without distractions.',
+            proj1Meta1: 'Timeline: 1–2 days',
+            proj1Meta2: 'HTML · CSS · JS',
+            proj2Title: 'Portfolio website',
+            proj2Type: 'For an expert or freelancer',
+            proj2Desc: 'Structured presentation of experience, services and contact information.',
+            proj2Meta1: 'Timeline: 3–4 days',
+            proj2Meta2: 'multi‑page',
+            proj3Title: 'Mini‑service',
+            proj3Type: 'Functional module',
+            proj3Desc: 'A calculator, quiz or other small service for a specific task.',
+            proj3Meta1: 'Timeline: depends on scope',
+            proj3Meta2: 'JavaScript',
+
+            processLabel: 'Process',
+            processTitle: 'Collaboration steps',
+            step1Title: 'Defining the task',
+            step1Text: 'We define the goal, format and main requirements of the project.',
+            step2Title: 'Structure and wireframe',
+            step2Text: 'I build the page skeleton and agree on the block layout logic.',
+            step3Title: 'Design, layout and launch',
+            step3Text: 'I design the interface, set up responsiveness and help with publishing.',
+
+            faqLabel: 'FAQ',
+            faqTitle: 'Frequently asked questions',
+            faqQ1: 'How many rounds of revisions are included?',
+            faqA1: 'The base price includes two rounds of revisions to design and content. Small text tweaks that do not change the approved structure or page count are included.',
+            faqQ2: 'What do you need from the client before we start?',
+            faqA2: 'A short description of the task and examples of websites you like are enough. We can prepare texts and materials together and adapt them to the site format.',
+            faqQ3: 'Can you improve an existing website?',
+            faqA3: 'No. I do not work with someone else’s layout, because improving an old project often takes longer than building a new one and makes it hard to guarantee stability and consistent style.',
+            faqQ4: 'How is payment handled?',
+            faqA4: 'Before we start, we fix the price and an approximate timeline. For small tasks, payment after completion is possible.',
+
+            contactLabel: 'Contacts',
+            contactTitle: 'Project inquiry',
+            contactSub: 'A short description is enough for an initial estimate.',
+            labelName: 'Name / nickname',
+            labelContact: 'Contact details',
+            labelMessage: 'Describe the task',
+            namePlaceholder: 'How should I address you',
+            contactPlaceholder: 'Telegram, WhatsApp or e-mail',
+            messagePlaceholder: 'For example: need a landing page for a service',
+            contactBtn: 'Send request',
+            contactHintInitial: 'A draft email will be opened.',
+            contactHintAfter: 'A draft email will be opened. If it did not open, please email me directly.',
+
+            footerTagline: 'minimalist websites tailored to your task.'
+        }
+    };
+
+    var currentLang = 'ru';
+
+    function setLanguage(lang) {
+        if (!translations[lang]) lang = 'ru';
+        currentLang = lang;
+        document.documentElement.lang = lang;
+
+        var map = translations[lang];
+
+        var idMap = {
+            logoSub: 'logoSub',
+            badgeText: 'badgeText',
+            heroTitle: 'heroTitle',
+            heroSub: 'heroSub',
+            heroTagLanding: 'heroTagLanding',
+            heroTagPortfolio: 'heroTagPortfolio',
+            heroTagMicro: 'heroTagMicro',
+            heroCta: 'heroCta',
+            heroNote: 'heroNote',
+
+            formatsLabel: 'formatsLabel',
+            formatsTitle: 'formatsTitle',
+            formatsSub: 'formatsSub',
+            format1Title: 'format1Title',
+            format1Sub: 'format1Sub',
+            format1Tag1: 'format1Tag1',
+            format1Tag2: 'format1Tag2',
+            format2Title: 'format2Title',
+            format2Sub: 'format2Sub',
+            format2Tag1: 'format2Tag1',
+            format2Tag2: 'format2Tag2',
+            format3Title: 'format3Title',
+            format3Sub: 'format3Sub',
+            format3Tag1: 'format3Tag1',
+
+            aboutLabel: 'aboutLabel',
+            aboutTitle: 'aboutTitle',
+            aboutSub: 'aboutSub',
+            aboutP1: 'aboutP1',
+            aboutP2: 'aboutP2',
+            aboutTechTitle: 'aboutTechTitle',
+            aboutTechText: 'aboutTechText',
+            aboutFocusTitle: 'aboutFocusTitle',
+            aboutFocusText: 'aboutFocusText',
+            aboutFormatTitle: 'aboutFormatTitle',
+            aboutFormatText: 'aboutFormatText',
+
+            projectsLabel: 'projectsLabel',
+            projectsTitle: 'projectsTitle',
+            projectsSub: 'projectsSub',
+            proj1Title: 'proj1Title',
+            proj1Type: 'proj1Type',
+            proj1Desc: 'proj1Desc',
+            proj1Meta1: 'proj1Meta1',
+            proj1Meta2: 'proj1Meta2',
+            proj2Title: 'proj2Title',
+            proj2Type: 'proj2Type',
+            proj2Desc: 'proj2Desc',
+            proj2Meta1: 'proj2Meta1',
+            proj2Meta2: 'proj2Meta2',
+            proj3Title: 'proj3Title',
+            proj3Type: 'proj3Type',
+            proj3Desc: 'proj3Desc',
+            proj3Meta1: 'proj3Meta1',
+            proj3Meta2: 'proj3Meta2',
+
+            processLabel: 'processLabel',
+            processTitle: 'processTitle',
+            step1Title: 'step1Title',
+            step1Text: 'step1Text',
+            step2Title: 'step2Title',
+            step2Text: 'step2Text',
+            step3Title: 'step3Title',
+            step3Text: 'step3Text',
+
+            faqLabel: 'faqLabel',
+            faqTitle: 'faqTitle',
+            faqQ1: 'faqQ1',
+            faqA1: 'faqA1',
+            faqQ2: 'faqQ2',
+            faqA2: 'faqA2',
+            faqQ3: 'faqQ3',
+            faqA3: 'faqA3',
+            faqQ4: 'faqQ4',
+            faqA4: 'faqA4',
+
+            contactLabel: 'contactLabel',
+            contactTitle: 'contactTitle',
+            contactSub: 'contactSub',
+            labelName: 'labelName',
+            labelContact: 'labelContact',
+            labelMessage: 'labelMessage',
+            contactBtn: 'contactBtn',
+            footerTagline: 'footerTagline'
+        };
+
+        var htmlKeys = [
+            'heroSub',
+            'aboutP1',
+            'aboutP2',
+            'faqA1',
+            'faqA2',
+            'faqA3',
+            'faqA4'
+        ];
+
+        Object.keys(idMap).forEach(function(id) {
+            var el = document.getElementById(id);
+            var key = idMap[id];
+            if (!el || !map[key]) return;
+            if (htmlKeys.indexOf(key) !== -1) {
+                el.innerHTML = map[key];
+            } else {
+                el.textContent = map[key];
+            }
+        });
+
+        var contactStatus = document.getElementById('contactStatus');
+        if (contactStatus && map.contactHintInitial) {
+            contactStatus.textContent = map.contactHintInitial;
+        }
+
+        var nameInput = document.getElementById('name');
+        if (nameInput && map.namePlaceholder) nameInput.placeholder = map.namePlaceholder;
+        var contactInput = document.getElementById('contactField');
+        if (contactInput && map.contactPlaceholder) contactInput.placeholder = map.contactPlaceholder;
+        var msgInput = document.getElementById('message');
+        if (msgInput && map.messagePlaceholder) msgInput.placeholder = map.messagePlaceholder;
+
+        var buttons = document.querySelectorAll('.lang-btn');
+        buttons.forEach(function(btn) {
+            if (btn.dataset.lang === lang) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var buttons = document.querySelectorAll('.lang-btn');
+        buttons.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                setLanguage(btn.dataset.lang);
+            });
+        });
+        setLanguage('ru');
+
+        var root = document.documentElement;
+        root.setAttribute('data-theme', 'light');
+        var themeBtn = document.getElementById('themeToggle');
+        if (themeBtn) {
+            themeBtn.textContent = '🌙';
+            themeBtn.addEventListener('click', function() {
+                var current = root.getAttribute('data-theme') || 'light';
+                var next = current === 'light' ? 'dark' : 'light';
+                root.setAttribute('data-theme', next);
+                themeBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+            });
+        }
+    });
+
+    function handleContact(e) {
+        e.preventDefault();
+        var name = document.getElementById('name').value.trim();
+        var contact = document.getElementById('contactField').value.trim();
+        var message = document.getElementById('message').value.trim();
+
+        var subject = encodeURIComponent('Запрос по проекту — R&I Digital');
+        var body = encodeURIComponent(
+            'Имя / ник: ' + name + '\n' +
+            'Контакт: ' + contact + '\n\n' +
+            'Задача:\n' + message
+        );
+
+        window.location.href = 'mailto:romaignashevich@gmail.com?subject=' + subject + '&body=' + body;
+
+        var map = translations[currentLang] || translations.ru;
+        var contactStatus = document.getElementById('contactStatus');
+        if (contactStatus && map.contactHintAfter) {
+            contactStatus.textContent = map.contactHintAfter;
+        }
+    }
+</script>
+</body>
+</html>
