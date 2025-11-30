@@ -1,0 +1,2117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>R&I Digital — мобильная версия</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="R&I Digital — минималистичные сайты: лендинги, портфолио и мини-сервисы. Мобильная версия.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #f5f5f7;
+            --card: #ffffff;
+            --card-soft: #f9f9fb;
+            --border-subtle: rgba(0, 0, 0, 0.06);
+            --text-main: #1d1d1f;
+            --text-muted: #6e6e73;
+            --accent: #0071e3;
+            --accent-soft: rgba(0, 113, 227, 0.10);
+            --accent-red: #ff375f;
+            --accent-green: #30d158;
+            --shadow-soft: 0 14px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="dark"] {
+            --bg: #050509;
+            --card: #12121a;
+            --card-soft: #181822;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --text-main: #f5f5ff;
+            --text-muted: #a1a1b3;
+            --accent: #0a84ff;
+            --accent-soft: rgba(10, 132, 255, 0.18);
+            --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: radial-gradient(120% 140% at 0% 0%, #e8f1ff 0%, #f5f5f7 45%, #ffffff 100%);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [data-theme="dark"] body {
+            background: radial-gradient(130% 160% at 0% 0%, #111327 0%, #050509 45%, #050509 100%);
+        }
+
+        .page {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 16px 12px 80px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background: radial-gradient(140% 200% at 0% 0%, rgba(255, 255, 255, 0.95), rgba(245, 245, 247, 0.94));
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        [data-theme="dark"] header {
+            background: linear-gradient(to bottom, rgba(5, 5, 9, 0.98), rgba(5, 5, 9, 0.94));
+            border-bottom-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .web-note {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: #6e6e73;
+            margin: 4px 16px 0;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        [data-theme="dark"] .web-note {
+            background: rgba(255, 255, 255, 0.05);
+            color: #d2d2dc;
+        }
+
+        .web-note-icon {
+            font-size: 13px;
+        }
+
+        .web-note-text {
+            flex: 1;
+        }
+
+        .floating-cta {
+            position: fixed;
+            left: 14px;
+            right: 14px;
+            bottom: 88px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: var(--card);
+            box-shadow: 0 8px 24px rgba(15, 15, 30, 0.28);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 12px;
+            z-index: 40;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        [data-theme="dark"] .floating-cta {
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .floating-cta.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .floating-cta-text {
+            color: var(--text-main);
+        }
+
+        .floating-cta-text span {
+            font-weight: 500;
+        }
+
+        .floating-cta-btn {
+            border: none;
+            outline: none;
+            padding: 7px 14px;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .floating-cta-btn:active {
+            transform: translateY(1px);
+        }
+
+        .mobile-nav {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 10px;
+            padding: 0 14px;
+            background: transparent;
+            z-index: 35;
+            pointer-events: none;
+        }
+
+        .mobile-nav-inner {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 6px 10px;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 999px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 12px 32px rgba(15, 15, 30, 0.25);
+            display: flex;
+            justify-content: space-between;
+            gap: 4px;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            pointer-events: auto;
+        }
+
+        [data-theme="dark"] .mobile-nav-inner {
+            background: rgba(10, 10, 18, 0.94);
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.85);
+        }
+
+        .mobile-nav-btn {
+            flex: 1;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            font-size: 10px;
+            padding: 4px 0;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease;
+        }
+
+        .mobile-nav-btn-icon {
+            font-size: 15px;
+            line-height: 1;
+            opacity: 0.9;
+        }
+
+        .mobile-nav-btn-label {
+            font-size: 10px;
+        }
+
+        .mobile-nav-btn:active {
+            transform: translateY(1px);
+        }
+
+        .mobile-nav-btn-active {
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .mobile-nav-btn-active .mobile-nav-btn-icon {
+            opacity: 1;
+        }
+
+        .mobile-nav-btn-active .mobile-nav-btn-label {
+            opacity: 1;
+        }
+
+        .header-inner {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 10px 12px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-mark {
+            height: 30px;
+            width: auto;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .logo-name {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+        }
+
+        .logo-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lang-switch {
+            display: inline-flex;
+            border-radius: 999px;
+            padding: 2px;
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        [data-theme="dark"] .lang-switch {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .lang-btn {
+            border: none;
+            background: transparent;
+            font-size: 11px;
+            padding: 4px 7px;
+            border-radius: 999px;
+            color: var(--text-muted);
+        }
+
+        .lang-btn.active {
+            background: var(--accent);
+            color: #ffffff;
+            box-shadow: 0 3px 8px rgba(0,113,227,0.35);
+        }
+
+        .theme-toggle-btn {
+            border: none;
+            background: transparent;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 6px 8px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.04);
+            color: var(--text-muted);
+            font-size: 11px;
+        }
+
+        [data-theme="dark"] .badge {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: var(--accent);
+        }
+
+        main {
+            margin-top: 12px;
+        }
+
+        .hero-title {
+            margin: 12px 0 6px;
+            font-size: 24px;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-sub {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        .hero-sub strong {
+            color: var(--text-main);
+        }
+
+        .hero-tags {
+            margin-top: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .hero-tag {
+            font-size: 11px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--border-subtle);
+            background: rgba(255,255,255,0.7);
+            color: var(--text-muted);
+        }
+
+        [data-theme="dark"] .hero-tag {
+            background: rgba(10, 10, 16, 0.9);
+        }
+
+        .hero-tag-primary {
+            border-color: var(--accent);
+        }
+        .hero-tag-red {
+            border-color: var(--accent-red);
+        }
+        .hero-tag-green {
+            border-color: var(--accent-green);
+        }
+
+        .hero-actions {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: flex-start;
+        }
+
+        .hero-cta {
+            border-radius: 999px;
+            padding: 9px 16px;
+            border: none;
+            background: var(--accent);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: 0 8px 20px rgba(0, 113, 227, 0.35);
+        }
+
+        .hero-cta:active {
+            transform: translateY(1px);
+        }
+
+        .hero-note {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        section + section {
+            margin-top: 18px;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 18px;
+            padding: 14px 12px 12px;
+            box-shadow: 0 6px 18px rgba(15, 15, 30, 0.12);
+            border: 1px solid var(--border-subtle);
+            transform: translateY(0);
+            transition: transform 0.22s ease-out, box-shadow 0.25s ease-out;
+        }
+
+        .card:active {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(15, 15, 30, 0.16);
+        }
+
+        [data-theme="dark"] .card {
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.75);
+        }
+
+        [data-theme="dark"] .card:active {
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.9);
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .section-index {
+            display: inline-flex;
+            width: 22px;
+            height: 22px;
+            border-radius: 999px;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        [data-theme="dark"] .section-index {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .section-title {
+            margin: 0 0 4px;
+            font-size: 18px;
+        }
+
+        .section-sub {
+            margin: 0 0 10px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .formats-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .format-card {
+            padding: 10px 10px;
+            border-radius: 14px;
+            background: var(--card-soft);
+        }
+
+        [data-theme="dark"] .format-card {
+            background: #161623;
+        }
+
+        .format-title {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .format-sub {
+            margin-top: 3px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .format-tags {
+            margin-top: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .format-tag {
+            font-size: 11px;
+            padding: 2px 7px;
+            border-radius: 999px;
+            background: #f0f0f3;
+            color: var(--text-muted);
+        }
+
+        [data-theme="dark"] .format-tag {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .about-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        .about-text p + p {
+            margin-top: 8px;
+        }
+
+        .about-text strong {
+            color: var(--text-main);
+        }
+
+        .about-list {
+            margin-top: 10px;
+            display: grid;
+            gap: 6px;
+            font-size: 13px;
+        }
+
+        .about-item-title {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .about-item-value {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .projects-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .project {
+            padding: 10px 10px;
+            border-radius: 14px;
+            background: var(--card-soft);
+        }
+
+        [data-theme="dark"] .project {
+            background: #161623;
+        }
+
+        .project-title {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .project-type {
+            margin-top: 2px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .project-desc {
+            margin: 6px 0 6px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .process-steps {
+            display: grid;
+            gap: 8px;
+        }
+
+        .process-step {
+            padding: 9px 10px;
+            border-radius: 14px;
+            background: var(--card-soft);
+        }
+
+        [data-theme="dark"] .process-step {
+            background: #161623;
+        }
+
+        .process-step-title {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .process-step-text {
+            margin-top: 4px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .faq-list {
+            display: grid;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .faq-list > div {
+            padding: 9px 10px;
+            border-radius: 14px;
+            background: #f4f4f7;
+        }
+
+        [data-theme="dark"] .faq-list > div {
+            background: #111321;
+        }
+
+        .faq-q {
+            font-weight: 500;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .faq-q::after {
+            content: '▾';
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-left: 8px;
+        }
+
+        .faq-q.is-open::after {
+            content: '▴';
+        }
+
+        .faq-a {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-top: 4px;
+        }
+
+        .contact-fields {
+            display: grid;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .field-label {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .field-input, .field-textarea {
+            width: 100%;
+            padding: 9px 10px;
+            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        [data-theme="dark"] .field-input,
+        [data-theme="dark"] .field-textarea {
+            background: rgba(5, 5, 9, 0.9);
+        }
+
+        .field-input:focus, .field-textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px rgba(0, 113, 227, 0.3);
+        }
+
+        .field-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .contact-footer {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .contact-btn {
+            border-radius: 999px;
+            padding: 9px 16px;
+            border: none;
+            background: var(--accent);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: 0 8px 20px rgba(0, 113, 227, 0.35);
+        }
+
+        .contact-btn:active {
+            transform: translateY(1px);
+        }
+
+        .contact-status {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        footer {
+            max-width: 480px;
+            margin: 24px auto 90px;
+            padding: 0 12px 0;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* FUN ZONE стили */
+        .fun-zone-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .fun-zone-score {
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .fun-zone-status {
+            margin-top: 6px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .fun-zone-actions {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .fun-zone-btn {
+            border-radius: 999px;
+            padding: 9px 16px;
+            border: none;
+            background: var(--accent);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: 0 8px 20px rgba(0, 113, 227, 0.35);
+            cursor: pointer;
+        }
+
+        .fun-zone-btn:active {
+            transform: translateY(1px);
+        }
+
+        .fun-zone-link {
+            border-radius: 999px;
+            padding: 7px 14px;
+            border: 1px solid var(--border-subtle);
+            background: transparent;
+            color: var(--text-main);
+            font-size: 12px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        [data-theme="dark"] .fun-zone-link {
+            border-color: rgba(255, 255, 255, 0.12);
+            color: var(--text-muted);
+        }
+
+        .fun-overlay,
+        .fun-reaction-overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(5, 5, 10, 0.38);
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.18s ease;
+        }
+
+        .fun-overlay.visible,
+        .fun-reaction-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .fun-popup-window,
+        .fun-reaction-window {
+            max-width: 320px;
+            margin: 0 20px;
+            background: var(--card);
+            border-radius: 18px;
+            padding: 14px 14px 12px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--border-subtle);
+        }
+
+        [data-theme="dark"] .fun-popup-window,
+        [data-theme="dark"] .fun-reaction-window {
+            background: #14141f;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .fun-popup-label {
+            font-size: 11px;
+            color: var(--accent-red);
+            margin-bottom: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .fun-popup-label-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--accent-red);
+        }
+
+        .fun-popup-text {
+            font-size: 13px;
+            color: var(--text-main);
+            margin: 6px 0 10px;
+        }
+
+        .fun-popup-note {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .fun-popup-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .fun-popup-btn-main {
+            border-radius: 999px;
+            padding: 8px 14px;
+            border: none;
+            background: var(--accent);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .fun-popup-btn-main:active {
+            transform: translateY(1px);
+        }
+
+        .fun-popup-btn-secondary {
+            border-radius: 999px;
+            padding: 7px 14px;
+            border: 1px solid var(--border-subtle);
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        [data-theme="dark"] .fun-popup-btn-secondary {
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .fun-reaction-icon {
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+
+        .fun-reaction-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .fun-reaction-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .fun-reaction-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .fun-reaction-btn {
+            border-radius: 999px;
+            padding: 8px 14px;
+            border: none;
+            background: var(--accent);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .fun-reaction-btn-secondary {
+            border-radius: 999px;
+            padding: 7px 14px;
+            border: 1px solid var(--border-subtle);
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 12px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        [data-theme="dark"] .fun-reaction-btn-secondary {
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .fun-clown {
+            display: inline-block;
+            animation: clown-wiggle 0.7s ease-in-out infinite alternate;
+        }
+
+        @keyframes clown-wiggle {
+            0% { transform: translateY(0px) rotate(-4deg); }
+            100% { transform: translateY(-3px) rotate(4deg); }
+        }
+    
+        .fade-up {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+        }
+
+        .fade-up.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <div class="logo">
+            <img src="ri-logo.png" alt="R&I Digital логотип" class="logo-mark">
+            <div class="logo-text">
+                <div class="logo-name">R&I DIGITAL</div>
+                <div class="logo-sub" id="logoSub">минималистичные сайты и цифровые решения</div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="lang-switch" aria-label="Переключить язык">
+                <button class="lang-btn active" type="button" data-lang="ru">RU</button>
+                <button class="lang-btn" type="button" data-lang="en">EN</button>
+            </div>
+            <button class="theme-toggle-btn" id="themeToggle" type="button" aria-label="Переключить тему">🌙</button>
+        </div>
+    </div>
+    <p class="web-note">
+        <span class="web-note-icon">🌐</span>
+        <span class="web-note-text" id="webNoteText">Весь функционал доступен в веб-версии.</span>
+    </p>
+</header>
+
+<main class="page">
+    <section id="top">
+        <div class="badge">
+            <div class="badge-dot"></div>
+            <span id="badgeText">Портфолио разработчика сайтов</span>
+        </div>
+
+        <h1 class="hero-title" id="heroTitle">
+            Я разрабатываю сайты, которые ясно формулируют ваше предложение.
+        </h1>
+
+        <p class="hero-sub" id="heroSub">
+            Разрабатываю лендинги, портфолио, мини-сервисы и Telegram-боты. <strong>Один человек отвечает за всё:</strong> структура, логика, дизайн и адаптивная вёрстка в одних руках.
+        </p>
+
+        <div class="hero-tags">
+            <span class="hero-tag hero-tag-primary" id="heroTagLanding">лендинги под рекламу</span>
+            <span class="hero-tag" id="heroTagPortfolio">портфолио</span>
+            <span class="hero-tag hero-tag-green" id="heroTagMicro">микросервисы</span>
+        </div>
+
+        <div class="hero-actions">
+            <button class="hero-cta" id="heroCta">Обсудить проект →</button>
+            <div class="hero-note" id="heroNote">При необходимости можем начать с одного пилотного экрана.</div>
+        </div>
+    </section>
+
+    <section id="formats">
+        <div class="card fade-up">
+            <div class="section-label">
+                <span class="section-index">01</span>
+                <span id="formatsLabel">Форматы</span>
+            </div>
+            <h2 class="section-title" id="formatsTitle">Основные форматы работы</h2>
+            <p class="section-sub" id="formatsSub">Три базовых типа решений, с которых чаще всего начинается сотрудничество.</p>
+
+            <div class="formats-grid">
+                <div class="format-card">
+                    <div class="format-title" id="format1Title">Лендинг под услугу</div>
+                    <div class="format-sub" id="format1Sub">Один экран или короткий лендинг, который приводит к одному действию.</div>
+                    <div class="format-tags">
+                        <span class="format-tag" id="format1Tag1">услуга</span>
+                        <span class="format-tag" id="format1Tag2">продукт</span>
+                    </div>
+                </div>
+                <div class="format-card">
+                    <div class="format-title" id="format2Title">Портфолио</div>
+                    <div class="format-sub" id="format2Sub">Кто вы, чем занимаетесь и как с вами связаться.</div>
+                    <div class="format-tags">
+                        <span class="format-tag" id="format2Tag1">эксперты</span>
+                        <span class="format-tag" id="format2Tag2">фриланс</span>
+                    </div>
+                </div>
+                <div class="format-card">
+                    <div class="format-title" id="format3Title">Мини-сервис</div>
+                    <div class="format-sub" id="format3Sub">Калькулятор, квиз или другой маленький сервис под конкретную задачу.</div>
+                    <div class="format-tags">
+                        <span class="format-tag" id="format3Tag1">под CRM / заявки</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="card fade-up">
+            <div class="section-label">
+                <span class="section-index">02</span>
+                <span id="aboutLabel">Обо мне</span>
+            </div>
+            <h2 class="section-title" id="aboutTitle">Подход к разработке</h2>
+            <p class="section-sub" id="aboutSub">Строгая структура, понятный текст и аккуратная вёрстка без визуального шума.</p>
+
+            <div class="about-text">
+                <p id="aboutP1">Я собираю сайты под конкретную задачу: показать компетенции, привести заявку, провести пользователя по простому сценарию.</p>
+                <p id="aboutP2">Если у вас уже есть идеи, тексты или примеры, мы опираемся на них. Если нет — вместе формулируем чёткое предложение и структуру будущего сайта.</p>
+            </div>
+
+            <div class="about-list">
+                <div>
+                    <div class="about-item-title" id="aboutTechTitle">Технологии</div>
+                    <div class="about-item-value" id="aboutTechText">HTML, CSS, JS, GitHub Pages.</div>
+                </div>
+                <div>
+                    <div class="about-item-title" id="aboutFocusTitle">Фокус</div>
+                    <div class="about-item-value" id="aboutFocusText">ясное предложение, логичная структура, одно ключевое действие.</div>
+                </div>
+                <div>
+                    <div class="about-item-title" id="aboutFormatTitle">Формат работы</div>
+                    <div class="about-item-value" id="aboutFormatText">короткие созвоны, промежуточные версии, без лишней бюрократии.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="card fade-up">
+            <div class="section-label">
+                <span class="section-index">03</span>
+                <span id="projectsLabel">Проекты</span>
+            </div>
+            <h2 class="section-title" id="projectsTitle">Форматы решений</h2>
+            <p class="section-sub" id="projectsSub">На их основе можно собрать сайт под практически любую нишу.</p>
+
+            <div class="projects-list">
+                <div class="project">
+                    <div class="project-title" id="proj1Title">Лендинг под услугу</div>
+                    <div class="project-type" id="proj1Type">Одностраничный сайт</div>
+                    <p class="project-desc" id="proj1Desc">Чёткий оффер, структура по блокам и одна форма обращения. Подойдёт для таргета, контекстной рекламы или продвижения в соцсетях.</p>
+                    <div class="project-meta">
+                        <span id="proj1Meta1">Срок: 1–2 дня</span>
+                        <span id="proj1Meta2">HTML · CSS · JS</span>
+                    </div>
+                </div>
+                <div class="project">
+                    <div class="project-title" id="proj2Title">Портфолио-сайт</div>
+                    <div class="project-type" id="proj2Type">Многостраничный сайт</div>
+                    <p class="project-desc" id="proj2Desc">О вас, ваших услугах и кейсах: кому помогли, как, с каким результатом. Добавляем блок с формой и контактами.</p>
+                    <div class="project-meta">
+                        <span id="proj2Meta1">Срок: 3–4 дня</span>
+                        <span id="proj2Meta2">несколько экранов</span>
+                    </div>
+                </div>
+                <div class="project">
+                    <div class="project-title" id="proj3Title">Мини-сервис</div>
+                    <div class="project-type" id="proj3Type">Функциональный модуль</div>
+                <div class="project">
+                    <div class="project-title" id="proj4Title">Telegram-бот</div>
+                    <div class="project-type" id="proj4Type">От заявки до сложной логики</div>
+                    <p class="project-desc" id="proj4Desc">
+                        Приём заявок, квиз, записи, мини-CRM или автоматизация рутины прямо в Telegram.
+                        От простых сценариев до ветвистых диалогов и интеграций.
+                    </p>
+                    <div class="project-meta">
+                        <span id="proj4Meta1">Срок: от 2 дней</span>
+                        <span id="proj4Meta2">Telegram Bot API · Node.js · JavaScript</span>
+                    </div>
+                </div>
+                    <p class="project-desc" id="proj3Desc">Калькулятор, квиз или другой небольшой модуль, который помогает пользователю сделать шаг к нужному действию.</p>
+                    <div class="project-meta">
+                        <span id="proj3Meta1">Срок: зависит от объёма</span>
+                        <span id="proj3Meta2">JavaScript</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process">
+        <div class="card fade-up">
+            <div class="section-label">
+                <span class="section-index">04</span>
+                <span id="processLabel">Процесс</span>
+            </div>
+            <h2 class="section-title" id="processTitle">Этапы сотрудничества</h2>
+
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="process-step-title" id="step1Title">Формулировка задачи</div>
+                    <div class="process-step-text" id="step1Text">Определяем цель, формат и основные требования к сайту или модулю.</div>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-title" id="step2Title">Структура и прототип</div>
+                    <div class="process-step-text" id="step2Text">Собираю каркас страниц и согласую логику расположения блоков.</div>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-title" id="step3Title">Дизайн, вёрстка и запуск</div>
+                    <div class="process-step-text" id="step3Text">Разрабатываю интерфейс, настраиваю адаптивность и помогаю с публикацией.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FUN ZONE -->
+    <section id="funzone">
+        <div class="card fade-up">
+            <div class="section-label">
+                <span class="section-index">FZ</span>
+                <span>Fun Zone</span>
+            </div>
+            <h2 class="section-title">Закройте дурацкие предложения о сайтах</h2>
+            <p class="section-sub">Мини-игра про кринжевые офферы по созданию сайтов. Ваша задача — вовремя закрывать всплывающие окна.</p>
+
+            <div class="fun-zone-meta">
+                Каждое окно — референс к тому, как делать не стоит. Когда закроете все &mdash; сможете так же закрыть вопрос с нормальным сайтом под вашу задачу.
+            </div>
+
+            <div class="fun-zone-score" id="funScore">Закрыто предложений: 0 из 10</div>
+            <div class="fun-zone-status" id="funStatus">
+                Нажмите «Запустить волну попапов», и на экране начнут появляться странные офферы. Каждое следующее появится только после того, как вы разберётесь с текущим.
+            </div>
+
+            <div class="fun-zone-actions">
+                <button class="fun-zone-btn" type="button" id="funStartBtn">Запустить волну попапов</button>
+                <button class="fun-zone-link" type="button" id="funContactBtn">Хочу нормальный сайт →</button>
+            </div>
+        </div>
+    </section>
+    <!-- /FUN ZONE -->
+
+    <section id="faq">
+        <div class="card fade-up">
+            <div class="section-label">
+                <span class="section-index">05</span>
+                <span id="faqLabel">FAQ</span>
+            </div>
+            <h2 class="section-title" id="faqTitle">Частые вопросы</h2>
+
+            <div class="faq-list">
+                <div>
+                    <div class="faq-q" id="faqQ1">Сколько итераций правок входит в работу?</div>
+                    <div class="faq-a" id="faqA1">В базовую стоимость входят 2 круга правок по каждой версии. Небольшие точечные изменения, которые не меняют заранее согласованную структуру и объём страниц, не требуют доплаты.</div>
+                </div>
+                <div>
+                    <div class="faq-q" id="faqQ2">Что нужно от клиента перед стартом?</div>
+                    <div class="faq-a" id="faqA2">На старте достаточно краткого описания задачи и примеров того, что вам нравится. Если уже есть тексты и материалы — мы опираемся на них. Если нет — я помогу их сократить и структурировать под формат сайта.</div>
+                </div>
+                <div>
+                    <div class="faq-q" id="faqQ3">Можно ли доработать уже существующий сайт?</div>
+                    <div class="faq-a" id="faqA3">Нет. Я не работаю с чужой вёрсткой, так как это часто ограничивает решения и усложняет поддержку. Проще и надёжнее собрать аккуратный сайт с нуля, чем пытаться «подлатать» старый.</div>
+                </div>
+                <div>
+                    <div class="faq-q" id="faqQ4">Как происходит оплата?</div>
+                    <div class="faq-a" id="faqA4">Перед началом работы фиксируется стоимость и примерные сроки. Оплата может делиться на 2 части: предоплата перед стартом и финальный платёж после согласования и сдачи проекта. Для небольших задач возможна оплата по факту.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="card fade-up">
+            <div class="section-label">
+                <span class="section-index">06</span>
+                <span id="contactLabel">Контакты</span>
+            </div>
+            <h2 class="section-title" id="contactTitle">Связаться по проекту</h2>
+            <p class="section-sub" id="contactSub">Краткого описания достаточно, чтобы предварительно оценить задачу.</p>
+
+            <form onsubmit="handleContact(event)">
+                <div class="contact-fields">
+                    <div>
+                        <div class="field-label" id="labelName">Имя / ник</div>
+                        <input class="field-input" id="name" type="text" placeholder="Как к вам обращаться" required>
+                    </div>
+                    <div>
+                        <div class="field-label" id="labelContact">Контакт для связи</div>
+                        <input class="field-input" id="contactField" type="text" placeholder="Telegram, WhatsApp или e-mail" required>
+                    </div>
+                    <div>
+                        <div class="field-label" id="labelMessage">Опишите задачу</div>
+                        <textarea class="field-textarea" id="message" placeholder="Что нужно сделать, сроки, ссылки на примеры — если есть"></textarea>
+                    </div>
+                </div>
+
+                <div class="contact-footer">
+                    <button class="contact-btn" id="contactBtn">Отправить письмо →</button>
+                    <div class="contact-status" id="contactStatus">Письмо откроется в вашем почтовом клиенте, вы сможете его отредактировать.</div>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+
+<div class="floating-cta" id="floatingCta">
+    <div class="floating-cta-text" id="floatingCtaText">
+        <span>Есть задача?</span> Напишите пару строк — отвечу лично.
+    </div>
+    <button class="floating-cta-btn" type="button" id="floatingCtaBtn">Написать</button>
+</div>
+
+<nav class="mobile-nav">
+    <div class="mobile-nav-inner">
+        <button class="mobile-nav-btn mobile-nav-btn-active" type="button" data-target="top">
+            <div class="mobile-nav-btn-icon">🏠</div>
+            <div class="mobile-nav-btn-label">Вверх</div>
+        </button>
+        <button class="mobile-nav-btn" type="button" data-target="formats">
+            <div class="mobile-nav-btn-icon">🧩</div>
+            <div class="mobile-nav-btn-label">Форматы</div>
+        </button>
+        <button class="mobile-nav-btn" type="button" data-target="projects">
+            <div class="mobile-nav-btn-icon">📁</div>
+            <div class="mobile-nav-btn-label">Проекты</div>
+        </button>
+        <button class="mobile-nav-btn" type="button" data-target="faq">
+            <div class="mobile-nav-btn-icon">❓</div>
+            <div class="mobile-nav-btn-label">FAQ</div>
+        </button>
+        <button class="mobile-nav-btn" type="button" data-target="contact">
+            <div class="mobile-nav-btn-icon">✉️</div>
+            <div class="mobile-nav-btn-label">Контакты</div>
+        </button>
+    </div>
+</nav>
+
+<footer>
+    © R&I DIGITAL · минималистичные сайты под вашу задачу.
+</footer>
+
+<script>
+    var yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    var translations = {
+        ru: {
+            logoSub: 'минималистичные сайты и цифровые решения',
+            badgeText: 'Портфолио разработчика сайтов',
+            heroTitle: 'Я разрабатываю сайты, которые ясно формулируют ваше предложение.',
+            heroSub: 'Разрабатываю лендинги, портфолио, мини-сервисы и Telegram-боты. <strong>Один человек отвечает за всё:</strong> структура, логика, дизайн и адаптивная вёрстка в одних руках.',
+            heroTagLanding: 'лендинги под рекламу',
+            heroTagPortfolio: 'портфолио',
+            heroTagMicro: 'микросервисы',
+                heroTagBots: 'Telegram-боты любой сложности',
+            heroCta: 'Обсудить проект →',
+            heroNote: 'При необходимости можем начать с одного пилотного экрана.',
+            webNote: 'Весь функционал доступен в веб-версии.',
+
+            formatsLabel: 'Форматы',
+            formatsTitle: 'Основные форматы работы',
+            formatsSub: 'Три базовых типа решений, с которых чаще всего начинается сотрудничество.',
+            format1Title: 'Лендинг под услугу',
+            format1Sub: 'Один экран или короткий лендинг, который приводит к одному действию.',
+            format1Tag1: 'услуга',
+            format1Tag2: 'продукт',
+            format2Title: 'Портфолио',
+            format2Sub: 'Кто вы, чем занимаетесь и как с вами связаться.',
+            format2Tag1: 'эксперты',
+            format2Tag2: 'фриланс',
+            format3Title: 'Мини-сервис',
+            format3Sub: 'Калькулятор, квиз или другой маленький сервис под конкретную задачу.',
+            format3Tag1: 'под CRM / заявки',
+
+            aboutLabel: 'Обо мне',
+            aboutTitle: 'Подход к разработке',
+            aboutSub: 'Строгая структура, понятный текст и аккуратная вёрстка без визуального шума.',
+            aboutP1: 'Я собираю сайты под конкретную задачу: показать компетенции, привести заявку, провести пользователя по простому сценарию.',
+            aboutP2: 'Если у вас уже есть идеи, тексты или примеры, мы опираемся на них. Если нет — вместе формулируем чёткое предложение и структуру будущего сайта.',
+            aboutTechTitle: 'Технологии',
+            aboutTechText: 'HTML, CSS, JS, GitHub Pages.',
+            aboutFocusTitle: 'Фокус',
+            aboutFocusText: 'ясное предложение, логичная структура, одно ключевое действие.',
+            aboutFormatTitle: 'Формат работы',
+            aboutFormatText: 'короткие созвоны, промежуточные версии, без лишней бюрократии.',
+
+            projectsLabel: 'Проекты',
+            projectsTitle: 'Форматы решений',
+            projectsSub: 'На их основе можно собрать сайт под практически любую нишу.',
+            proj1Title: 'Лендинг под услугу',
+            proj1Type: 'Одностраничный сайт',
+            proj1Desc: 'Чёткий оффер, структура по блокам и одна форма обращения. Подойдёт для таргета, контекстной рекламы или продвижения в соцсетях.',
+            proj1Meta1: 'Срок: 1–2 дня',
+            proj1Meta2: 'HTML · CSS · JS',
+            proj2Title: 'Портфолио-сайт',
+            proj2Type: 'Многостраничный сайт',
+            proj2Desc: 'О вас, ваших услугах и кейсах: кому помогли, как, с каким результатом. Добавляем блок с формой и контактами.',
+            proj2Meta1: 'Срок: 3–4 дня',
+            proj2Meta2: 'несколько экранов',
+            proj3Title: 'Мини-сервис',
+            proj3Type: 'Функциональный модуль',
+            proj3Desc: 'Калькулятор, квиз или другой небольшой модуль, который помогает пользователю сделать шаг к нужному действию.',
+            proj3Meta1: 'Срок: зависит от объёма',
+            proj3Meta2: 'JavaScript',
+
+            proj4Title: 'Telegram-бот',
+            proj4Type: 'От заявки до сложной логики',
+            proj4Desc: 'Приём заявок, квиз, записи, мини-CRM или автоматизация рутины прямо в Telegram. От простых сценариев до ветвистых диалогов и интеграций.',
+            proj4Meta1: 'Срок: от 2 дней',
+            proj4Meta2: 'Telegram Bot API · Node.js · JavaScript',
+
+            processLabel: 'Процесс',
+            processTitle: 'Этапы сотрудничества',
+            step1Title: 'Формулировка задачи',
+            step1Text: 'Определяем цель: сайт или Telegram-бот, формат и основные требования к проекту.',
+            step2Title: 'Структура и сценарий',
+            step2Text: 'Собираю каркас страниц или сценарий бота и согласую логику шагов и состояний.',
+            step3Title: 'Реализация и запуск',
+            step3Text: 'Разрабатываю интерфейс или диалоги бота, настраиваю интеграции и помогаю с запуском.',
+
+            faqLabel: 'FAQ',
+            faqTitle: 'Частые вопросы',
+            faqQ1: 'Сколько итераций правок входит в работу?',
+            faqA1: 'В базовую стоимость входят 2 круга правок по каждой версии. Небольшие точечные изменения, которые не меняют заранее согласованную структуру и объём страниц, не требуют доплаты.',
+            faqQ2: 'Что нужно от клиента перед стартом?',
+            faqA2: 'На старте достаточно краткого описания задачи и примеров того, что вам нравится. Если уже есть тексты и материалы — мы опираемся на них. Если нет — я помогу их сократить и структурировать под формат сайта.',
+            faqQ3: 'Можно ли доработать уже существующий сайт?',
+            faqA3: 'Нет. Я не работаю с чужой вёрсткой, так как это часто ограничивает решения и усложняет поддержку. Проще и надёжнее собрать аккуратный сайт с нуля, чем пытаться «подлатать» старый.',
+            faqQ4: 'Как происходит оплата?',
+            faqA4: 'Перед началом работы фиксируется стоимость и примерные сроки. Оплата может делиться на 2 части: предоплата перед стартом и финальный платёж после согласования и сдачи проекта. Для небольших задач возможна оплата по факту.',
+
+            contactLabel: 'Контакты',
+            contactTitle: 'Связаться по проекту',
+            contactSub: 'Краткого описания достаточно, чтобы предварительно оценить задачу.',
+            labelName: 'Имя / ник',
+            labelContact: 'Контакт для связи',
+            labelMessage: 'Опишите задачу',
+            namePlaceholder: 'Как к вам обращаться',
+            contactPlaceholder: 'Telegram, WhatsApp или e-mail',
+            messagePlaceholder: 'Что нужно сделать, сроки, ссылки на примеры — если есть',
+            contactBtn: 'Отправить письмо →',
+            contactHintInitial: 'Письмо откроется в вашем почтовом клиенте, вы сможете его отредактировать.',
+            contactHintAfter: 'Черновик письма открыт. Если что-то пойдёт не так, можете просто написать напрямую на почту.',
+
+            footerTagline: 'минималистичные сайты под вашу задачу.'
+        },
+        en: {
+            logoSub: 'Minimalist websites and digital solutions',
+            badgeText: 'Web developer portfolio',
+            heroTitle: 'I build websites that clearly communicate your offer.',
+            heroSub: 'I create landing pages, portfolios and mini-services. <strong>One person is responsible for everything:</strong> structure, design and responsive layout.',
+            heroTagLanding: 'ad landing pages',
+            heroTagPortfolio: 'portfolio',
+            heroTagMicro: 'micro-services',
+                heroTagBots: 'Telegram bots of any complexity',
+            heroCta: 'Discuss a project →',
+            heroNote: 'If needed, we can start with one pilot screen.',
+            webNote: 'Full experience is available in the web version.',
+
+            formatsLabel: 'Formats',
+            formatsTitle: 'Main collaboration formats',
+            formatsSub: 'Three basic solution types that most projects start with.',
+            format1Title: 'Service landing page',
+            format1Sub: 'A single screen or a short one-pager focused on one action.',
+            format1Tag1: 'service',
+            format1Tag2: 'product',
+            format2Title: 'Portfolio website',
+            format2Sub: 'Who you are, what you do and how to contact you.',
+            format2Tag1: 'experts',
+            format2Tag2: 'freelance',
+            format3Title: 'Mini-service',
+            format3Sub: 'A calculator, quiz or other small service for a specific task.',
+            format3Tag1: 'for CRM / leads',
+
+            aboutLabel: 'About',
+            aboutTitle: 'My approach',
+            aboutSub: 'Clear structure, readable copy and clean layout without visual noise.',
+            aboutP1: 'I design websites for a specific task: to show expertise, get a request or guide the user through a simple flow.',
+            aboutP2: 'If you already have ideas, copy or examples, we build on them. If not, we formulate a clear offer and structure together.',
+            aboutTechTitle: 'Tech stack',
+            aboutTechText: 'HTML, CSS, JS, GitHub Pages.',
+            aboutFocusTitle: 'Focus',
+            aboutFocusText: 'clear offer, logical structure, one key action.',
+            aboutFormatTitle: 'Workflow',
+            aboutFormatText: 'short calls, intermediate versions, no unnecessary bureaucracy.',
+
+            projectsLabel: 'Projects',
+            projectsTitle: 'Solution formats',
+            projectsSub: 'These can be adapted to almost any niche.',
+            proj1Title: 'Service landing page',
+            proj1Type: 'Single-page site',
+            proj1Desc: 'A clear offer, block-based structure and a single form. Works well with ads or social media traffic.',
+            proj1Meta1: 'Timeline: 1–2 days',
+            proj1Meta2: 'HTML · CSS · JS',
+            proj2Title: 'Portfolio website',
+            proj2Type: 'Multi-page site',
+            proj2Desc: 'Your story, services and case studies: who you helped, how and with what result.',
+            proj2Meta1: 'Timeline: 3–4 days',
+            proj2Meta2: 'multi-page',
+            proj3Title: 'Mini-service',
+            proj3Type: 'Functional module',
+            proj3Desc: 'A calculator, quiz or other small module that helps users move towards the desired action.',
+            proj3Meta1: 'Timeline: depends on scope',
+            proj3Meta2: 'JavaScript',
+
+            proj4Title: 'Telegram bot',
+            proj4Type: 'From lead capture to complex logic',
+            proj4Desc: 'A Telegram bot for your task: lead capture, quiz, bookings, a mini-CRM or routine automation. From simple flows to branching dialogues and integrations.',
+            proj4Meta1: 'Timeline: from 2 days',
+            proj4Meta2: 'Telegram Bot API · Node.js · JavaScript',
+
+            processLabel: 'Process',
+            processTitle: 'Collaboration steps',
+            step1Title: 'Defining the task',
+            step1Text: 'We clarify the goal: a website or a Telegram bot, the format and main requirements.',
+            step2Title: 'Structure and flow',
+            step2Text: 'I prepare the page structure or bot conversation flow and agree on steps and states.',
+            step3Title: 'Implementation and launch',
+            step3Text: 'I build the interface or bot dialogues, set up integrations and help with launch.',
+
+            faqLabel: 'FAQ',
+            faqTitle: 'Frequently asked questions',
+            faqQ1: 'How many rounds of revisions are included?',
+            faqA1: 'The base price includes two rounds of revisions per version. Small tweaks that don’t change the approved structure or page count are included.',
+            faqQ2: 'What do you need from the client before we start?',
+            faqA2: 'A short description of the task and examples of what you like. If you already have copy and materials, we can build on them. If not, we will shape and adapt them together.',
+            faqQ3: 'Can you improve an existing website?',
+            faqA3: 'No. I don’t work with someone else’s layout because it limits solutions and makes support harder. It’s more reliable to build a clean site from scratch.',
+            faqQ4: 'How is payment handled?',
+            faqA4: 'Before we start, we fix the price and approximate timeline. Payment is usually split into a prepayment and a final payment after approval. For small tasks, payment upon completion is possible.',
+
+            contactLabel: 'Contacts',
+            contactTitle: 'Contact about a project',
+            contactSub: 'A short description is enough for an initial estimate.',
+            labelName: 'Name / nickname',
+            labelContact: 'Contact details',
+            labelMessage: 'Describe the task',
+            namePlaceholder: 'How should I address you?',
+            contactPlaceholder: 'Telegram, WhatsApp or e-mail',
+            messagePlaceholder: 'What needs to be done, deadlines, links to examples — if any',
+            contactBtn: 'Send e-mail →',
+            contactHintInitial: 'Your e-mail client will open a draft that you can edit.',
+            contactHintAfter: 'Draft e-mail opened. If something goes wrong, you can write directly.',
+
+            footerTagline: 'minimalist websites tailored to your task.'
+        }
+    };
+
+    var currentLang = 'ru';
+
+    function setLanguage(lang) {
+        if (!translations[lang]) lang = 'ru';
+        currentLang = lang;
+        document.documentElement.lang = lang;
+
+        var map = translations[lang];
+
+        var idMap = {
+            logoSub: 'logoSub',
+            badgeText: 'badgeText',
+            heroTitle: 'heroTitle',
+            heroSub: 'heroSub',
+            heroTagLanding: 'heroTagLanding',
+            heroTagPortfolio: 'heroTagPortfolio',
+            heroTagMicro: 'heroTagMicro',
+            heroTagBots: 'heroTagBots',
+            heroCta: 'heroCta',
+            heroNote: 'heroNote',
+            webNoteText: 'webNote',
+
+            formatsLabel: 'formatsLabel',
+            formatsTitle: 'formatsTitle',
+            formatsSub: 'formatsSub',
+            format1Title: 'format1Title',
+            format1Sub: 'format1Sub',
+            format1Tag1: 'format1Tag1',
+            format1Tag2: 'format1Tag2',
+            format2Title: 'format2Title',
+            format2Sub: 'format2Sub',
+            format2Tag1: 'format2Tag1',
+            format2Tag2: 'format2Tag2',
+            format3Title: 'format3Title',
+            format3Sub: 'format3Sub',
+            format3Tag1: 'format3Tag1',
+
+            aboutLabel: 'aboutLabel',
+            aboutTitle: 'aboutTitle',
+            aboutSub: 'aboutSub',
+            aboutP1: 'aboutP1',
+            aboutP2: 'aboutP2',
+            aboutTechTitle: 'aboutTechTitle',
+            aboutTechText: 'aboutTechText',
+            aboutFocusTitle: 'aboutFocusTitle',
+            aboutFocusText: 'aboutFocusText',
+            aboutFormatTitle: 'aboutFormatTitle',
+            aboutFormatText: 'aboutFormatText',
+
+            projectsLabel: 'projectsLabel',
+            projectsTitle: 'projectsTitle',
+            projectsSub: 'projectsSub',
+            proj1Title: 'proj1Title',
+            proj1Type: 'proj1Type',
+            proj1Desc: 'proj1Desc',
+            proj1Meta1: 'proj1Meta1',
+            proj1Meta2: 'proj1Meta2',
+            proj2Title: 'proj2Title',
+            proj2Type: 'proj2Type',
+            proj2Desc: 'proj2Desc',
+            proj2Meta1: 'proj2Meta1',
+            proj2Meta2: 'proj2Meta2',
+            proj3Title: 'proj3Title',
+            proj3Type: 'proj3Type',
+            proj3Desc: 'proj3Desc',
+            proj3Meta1: 'proj3Meta1',
+            proj3Meta2: 'proj3Meta2',
+            proj4Title: 'proj4Title',
+            proj4Type: 'proj4Type',
+            proj4Desc: 'proj4Desc',
+            proj4Meta1: 'proj4Meta1',
+            proj4Meta2: 'proj4Meta2',
+
+            processLabel: 'processLabel',
+            processTitle: 'processTitle',
+            step1Title: 'step1Title',
+            step1Text: 'step1Text',
+            step2Title: 'step2Title',
+            step2Text: 'step2Text',
+            step3Title: 'step3Title',
+            step3Text: 'step3Text',
+
+            faqLabel: 'faqLabel',
+            faqTitle: 'faqTitle',
+            faqQ1: 'faqQ1',
+            faqA1: 'faqA1',
+            faqQ2: 'faqQ2',
+            faqA2: 'faqA2',
+            faqQ3: 'faqQ3',
+            faqA3: 'faqA3',
+            faqQ4: 'faqQ4',
+            faqA4: 'faqA4',
+
+            contactLabel: 'contactLabel',
+            contactTitle: 'contactTitle',
+            contactSub: 'contactSub',
+            labelName: 'labelName',
+            labelContact: 'labelContact',
+            labelMessage: 'labelMessage',
+            contactBtn: 'contactBtn',
+            footerTagline: 'footerTagline'
+        };
+
+        var htmlKeys = [
+            'heroSub',
+            'aboutP1',
+            'aboutP2',
+            'faqA1',
+            'faqA2',
+            'faqA3',
+            'faqA4'
+        ];
+
+        Object.keys(idMap).forEach(function(id) {
+            var el = document.getElementById(id);
+            var key = idMap[id];
+            if (!el || !map[key]) return;
+            if (htmlKeys.indexOf(key) !== -1) {
+                el.innerHTML = map[key];
+            } else {
+                el.textContent = map[key];
+            }
+        });
+
+        var contactStatus = document.getElementById('contactStatus');
+        if (contactStatus && map.contactHintInitial) {
+            contactStatus.textContent = map.contactHintInitial;
+        }
+
+        var nameInput = document.getElementById('name');
+        if (nameInput && map.namePlaceholder) nameInput.placeholder = map.namePlaceholder;
+        var contactInput = document.getElementById('contactField');
+        if (contactInput && map.contactPlaceholder) contactInput.placeholder = map.contactPlaceholder;
+        var msgInput = document.getElementById('message');
+        if (msgInput && map.messagePlaceholder) msgInput.placeholder = map.messagePlaceholder;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var buttons = document.querySelectorAll('.lang-btn');
+        buttons.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                setLanguage(btn.dataset.lang);
+                buttons.forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+            });
+        });
+        setLanguage('ru');
+
+        var root = document.documentElement;
+        root.setAttribute('data-theme', 'light');
+        var themeBtn = document.getElementById('themeToggle');
+        if (themeBtn) {
+            themeBtn.textContent = '🌙';
+            themeBtn.addEventListener('click', function() {
+                var current = root.getAttribute('data-theme') || 'light';
+                var next = current === 'light' ? 'dark' : 'light';
+                root.setAttribute('data-theme', next);
+                themeBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+            });
+        }
+
+        // FAQ accordion
+        var faqQuestions = document.querySelectorAll('.faq-q');
+        faqQuestions.forEach(function(q, index) {
+            var answer = q.nextElementSibling;
+            if (!answer) return;
+            if (index !== 0) {
+                answer.style.display = 'none';
+            } else {
+                q.classList.add('is-open');
+            }
+            q.addEventListener('click', function() {
+                var isOpen = q.classList.contains('is-open');
+                faqQuestions.forEach(function(otherQ) {
+                    var a = otherQ.nextElementSibling;
+                    if (!a) return;
+                    a.style.display = 'none';
+                    otherQ.classList.remove('is-open');
+                });
+                if (!isOpen) {
+                    answer.style.display = 'block';
+                    q.classList.add('is-open');
+                }
+            });
+        });
+
+        // Floating CTA + mobile nav
+        var floatingCta = document.getElementById('floatingCta');
+        var floatingCtaBtn = document.getElementById('floatingCtaBtn');
+        var contactSection = document.getElementById('contact');
+        var trackedSectionIds = ['top', 'formats', 'projects', 'faq', 'contact'];
+        var trackedSections = trackedSectionIds
+            .map(function(id) { return document.getElementById(id); })
+            .filter(function(el) { return !!el; });
+        var navButtons = document.querySelectorAll('.mobile-nav-btn');
+
+        function scrollToSection(id) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        if (floatingCtaBtn) {
+            floatingCtaBtn.addEventListener('click', function() {
+                scrollToSection('contact');
+            });
+        }
+
+        if (navButtons.length) {
+            navButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var target = btn.getAttribute('data-target');
+                    scrollToSection(target);
+                });
+            });
+        }
+
+        function updateNavAndCta() {
+            var scrollY = window.scrollY || window.pageYOffset || 0;
+            var vh = window.innerHeight || 0;
+
+            var currentId = 'top';
+            trackedSections.forEach(function(sec) {
+                var rect = sec.getBoundingClientRect();
+                if (rect.top <= vh * 0.25) {
+                    currentId = sec.id;
+                }
+            });
+
+            navButtons.forEach(function(btn) {
+                var target = btn.getAttribute('data-target');
+                if (target === currentId) {
+                    btn.classList.add('mobile-nav-btn-active');
+                } else {
+                    btn.classList.remove('mobile-nav-btn-active');
+                }
+            });
+
+            if (floatingCta && contactSection) {
+                var contactRect = contactSection.getBoundingClientRect();
+                var show = scrollY > vh * 0.35 && contactRect.top > vh * 0.65;
+                if (show) {
+                    floatingCta.classList.add('visible');
+                } else {
+                    floatingCta.classList.remove('visible');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', updateNavAndCta);
+        updateNavAndCta();
+
+        // Fun Zone game (обновлённая логика: новое окно появляется только после действия пользователя)
+        var funStartBtn = document.getElementById('funStartBtn');
+        if (funStartBtn) {
+            var funScoreEl = document.getElementById('funScore');
+            var funStatusEl = document.getElementById('funStatus');
+            var funContactBtn = document.getElementById('funContactBtn');
+
+            var funOverlay = null;
+            var funPhraseEl = null;
+            var funCloseBtn = null;
+            var funFakeBtn = null;
+
+            var reactionOverlay = null;
+            var reactionIconEl = null;
+            var reactionTitleEl = null;
+            var reactionTextEl = null;
+            var reactionButtonsEl = null;
+
+            var funIsRunning = false;
+            var funScore = 0;
+            var funTarget = 10;
+            var funFakeClickCount = 0;
+
+            var funPhrases = [
+                'Мы сделаем сайт за 150 рублей. Оплата картошкой!',
+                'Сайт за 3 минуты: без дизайна, без смысла, без стыда!',
+                'Уникальный сайт — просто копируем чужой шаблон. Никто не заметит!',
+                'Добавим 27 анимаций на один экран. Клиенты точно запомнят... что-то.',
+                'Сайт только для Windows XP и Internet Explorer 6. Надёжно и проверено временем!',
+                'Гарантируем, что сайт не откроется на iPhone, чтобы не отвлекать вашу аудиторию.',
+                'Три разных сайта по цене одного. Все одинаковые, чтобы не запутаться!',
+                'Сделаем landing за 10 минут. Контент? Лорем ипсум подойдёт всем.',
+                'Поставим 12 разных шрифтов. Чтобы каждый нашёл себе любимый.',
+                'После оплаты мы *возможно* свяжемся с вами. Когда-нибудь.'
+            ];
+
+            function ensureFunOverlay() {
+                if (funOverlay) return;
+                funOverlay = document.createElement('div');
+                funOverlay.className = 'fun-overlay';
+
+                var win = document.createElement('div');
+                win.className = 'fun-popup-window';
+
+                var label = document.createElement('div');
+                label.className = 'fun-popup-label';
+                var dot = document.createElement('span');
+                dot.className = 'fun-popup-label-dot';
+                var labelText = document.createElement('span');
+                labelText.textContent = 'Кринж-предложение';
+
+                label.appendChild(dot);
+                label.appendChild(labelText);
+
+                funPhraseEl = document.createElement('div');
+                funPhraseEl.className = 'fun-popup-text';
+
+                var note = document.createElement('div');
+                note.className = 'fun-popup-note';
+                note.textContent = 'Закройте окно, пока оно не испортило UX — как на плохом лендинге.';
+
+                var btns = document.createElement('div');
+                btns.className = 'fun-popup-buttons';
+
+                funCloseBtn = document.createElement('button');
+                funCloseBtn.type = 'button';
+                funCloseBtn.className = 'fun-popup-btn-main';
+                funCloseBtn.textContent = 'Закрыть это безумие';
+
+                funFakeBtn = document.createElement('button');
+                funFakeBtn.type = 'button';
+                funFakeBtn.className = 'fun-popup-btn-secondary';
+                funFakeBtn.textContent = 'Оформить этот кошмар';
+
+                btns.appendChild(funCloseBtn);
+                btns.appendChild(funFakeBtn);
+
+                win.appendChild(label);
+                win.appendChild(funPhraseEl);
+                win.appendChild(note);
+                win.appendChild(btns);
+
+                funOverlay.appendChild(win);
+                document.body.appendChild(funOverlay);
+            }
+
+            function ensureReactionOverlay() {
+                if (reactionOverlay) return;
+                reactionOverlay = document.createElement('div');
+                reactionOverlay.className = 'fun-reaction-overlay';
+
+                var win = document.createElement('div');
+                win.className = 'fun-reaction-window';
+
+                reactionIconEl = document.createElement('div');
+                reactionIconEl.className = 'fun-reaction-icon';
+
+                reactionTitleEl = document.createElement('div');
+                reactionTitleEl.className = 'fun-reaction-title';
+
+                reactionTextEl = document.createElement('div');
+                reactionTextEl.className = 'fun-reaction-text';
+
+                reactionButtonsEl = document.createElement('div');
+                reactionButtonsEl.className = 'fun-reaction-buttons';
+
+                win.appendChild(reactionIconEl);
+                win.appendChild(reactionTitleEl);
+                win.appendChild(reactionTextEl);
+                win.appendChild(reactionButtonsEl);
+
+                reactionOverlay.appendChild(win);
+                document.body.appendChild(reactionOverlay);
+            }
+
+            function continueAfterReaction() {
+                // Продолжаем игру, если она ещё активна и нет открытого попапа
+                if (!funIsRunning) return;
+                if (!funOverlay || !funOverlay.classList.contains('visible')) {
+                    spawnFunPopup();
+                }
+            }
+
+            function showReactionFacepalm() {
+                ensureReactionOverlay();
+                reactionIconEl.textContent = '🙈';
+                reactionIconEl.classList.remove('fun-clown');
+                reactionTitleEl.textContent = 'UX facepalm';
+                reactionTextEl.textContent = 'Вы почти оформили худший сайт в мире. Давайте всё-таки нормальный?';
+
+                reactionButtonsEl.innerHTML = '';
+                var okBtn = document.createElement('button');
+                okBtn.type = 'button';
+                okBtn.className = 'fun-reaction-btn';
+                okBtn.textContent = 'Понял';
+                okBtn.onclick = function() {
+                    reactionOverlay.classList.remove('visible');
+                    continueAfterReaction();
+                };
+                reactionButtonsEl.appendChild(okBtn);
+
+                reactionOverlay.classList.add('visible');
+                updateStatus('Хорошо, что это был только игровой попап, а не реальный заказ такого сайта.');
+            }
+
+            function showReactionConfirm() {
+                ensureReactionOverlay();
+                reactionIconEl.textContent = '⚠️';
+                reactionIconEl.classList.remove('fun-clown');
+                reactionTitleEl.textContent = 'Вы уверены?';
+                reactionTextEl.textContent = 'Может быть это ошибка? Такие сайты я в реальной работе не собираю.';
+
+                reactionButtonsEl.innerHTML = '';
+
+                var cancelBtn = document.createElement('button');
+                cancelBtn.type = 'button';
+                cancelBtn.className = 'fun-reaction-btn';
+                cancelBtn.textContent = 'Ой, да, ошибка';
+                cancelBtn.onclick = function() {
+                    reactionOverlay.classList.remove('visible');
+                    continueAfterReaction();
+                };
+
+                var stillBtn = document.createElement('button');
+                stillBtn.type = 'button';
+                stillBtn.className = 'fun-reaction-btn-secondary';
+                stillBtn.textContent = 'Я уверен, хочу кошмар';
+                stillBtn.onclick = function() {
+                    reactionOverlay.classList.remove('visible');
+                    updateStatus('Хорошая попытка, но такие сайты я не продаю — только аккуратные и понятные.');
+                    continueAfterReaction();
+                };
+
+                reactionButtonsEl.appendChild(cancelBtn);
+                reactionButtonsEl.appendChild(stillBtn);
+
+                reactionOverlay.classList.add('visible');
+            }
+
+            function showReactionClown() {
+                ensureReactionOverlay();
+                reactionIconEl.textContent = '🤡';
+                reactionIconEl.classList.add('fun-clown');
+                reactionTitleEl.textContent = 'Вот такой сайт вы почти оформили';
+                reactionTextEl.textContent = 'Давайте без этого, ок? Лучше соберём что-то понятное, аккуратное и без цирка.';
+
+                reactionButtonsEl.innerHTML = '';
+                var okBtn = document.createElement('button');
+                okBtn.type = 'button';
+                okBtn.className = 'fun-reaction-btn';
+                okBtn.textContent = 'Больше так не буду';
+                okBtn.onclick = function() {
+                    reactionOverlay.classList.remove('visible');
+                    continueAfterReaction();
+                };
+                reactionButtonsEl.appendChild(okBtn);
+
+                reactionOverlay.classList.add('visible');
+            }
+
+            function showWinResult() {
+                ensureReactionOverlay();
+                reactionIconEl.textContent = '⭐';
+                reactionIconEl.classList.remove('fun-clown');
+                reactionTitleEl.textContent = 'Вы — UX-герой';
+                reactionTextEl.textContent = 'Вы закрыли все дурацкие предложения. Теперь вы точно знаете, как НЕ должен выглядеть сайт. Хотите обсудить нормальный вариант под вашу задачу?';
+
+                reactionButtonsEl.innerHTML = '';
+
+                var contactBtn = document.createElement('button');
+                contactBtn.type = 'button';
+                contactBtn.className = 'fun-reaction-btn';
+                contactBtn.textContent = 'Обсудить проект';
+                contactBtn.onclick = function() {
+                    reactionOverlay.classList.remove('visible');
+                    scrollToSection('contact');
+                };
+
+                var closeBtn = document.createElement('button');
+                closeBtn.type = 'button';
+                closeBtn.className = 'fun-reaction-btn-secondary';
+                closeBtn.textContent = 'Закрыть';
+                closeBtn.onclick = function() {
+                    reactionOverlay.classList.remove('visible');
+                };
+
+                reactionButtonsEl.appendChild(contactBtn);
+                reactionButtonsEl.appendChild(closeBtn);
+
+                reactionOverlay.classList.add('visible');
+            }
+
+            function updateScoreText() {
+                if (funScoreEl) {
+                    funScoreEl.textContent = 'Закрыто предложений: ' + funScore + ' из ' + funTarget;
+                }
+            }
+
+            function updateStatus(text) {
+                if (funStatusEl) {
+                    funStatusEl.textContent = text;
+                }
+            }
+
+            function hideOverlay() {
+                if (funOverlay) {
+                    funOverlay.classList.remove('visible');
+                }
+            }
+
+            function endFunGame() {
+                funIsRunning = false;
+                hideOverlay();
+                funStartBtn.disabled = false;
+                funStartBtn.textContent = 'Сыграть ещё раз';
+            }
+
+            function spawnFunPopup() {
+                if (!funIsRunning) return;
+                ensureFunOverlay();
+
+                var phrase = funPhrases[Math.floor(Math.random() * funPhrases.length)];
+                funPhraseEl.textContent = phrase;
+
+                funCloseBtn.onclick = function() {
+                    if (!funIsRunning) return;
+                    funScore++;
+                    updateScoreText();
+                    hideOverlay();
+
+                    if (funScore >= funTarget) {
+                        updateStatus('Вы закрыли все дурацкие предложения. Теперь можно так же закрыть вопрос с нормальным сайтом.');
+                        endFunGame();
+                        showWinResult();
+                    } else {
+                        updateStatus('Отлично! Это предложение по созданию сайтов мы спасли. Дальше попапы будут не менее странными.');
+                        // Показываем следующее окно только после этого клика
+                        spawnFunPopup();
+                    }
+                };
+
+                funFakeBtn.onclick = function() {
+                    if (!funIsRunning) return;
+                    hideOverlay();
+                    funFakeClickCount++;
+                    var mode = funFakeClickCount % 3;
+                    if (mode === 1) {
+                        showReactionFacepalm();
+                    } else if (mode === 2) {
+                        showReactionConfirm();
+                    } else {
+                        showReactionClown();
+                    }
+                };
+
+                funOverlay.classList.add('visible');
+            }
+
+            funStartBtn.addEventListener('click', function() {
+                if (funIsRunning) return;
+                funIsRunning = true;
+                funScore = 0;
+                funFakeClickCount = 0;
+                updateScoreText();
+                updateStatus('Волна попапов запущена. Разбирайтесь с каждым окном по очереди — следующее появится только после вашего действия.');
+
+                this.disabled = true;
+                this.textContent = 'Игра идёт...';
+
+                spawnFunPopup();
+            });
+
+            if (funContactBtn) {
+                funContactBtn.addEventListener('click', function() {
+                    scrollToSection('contact');
+                });
+            }
+        }
+
+        // Fade-up animation for sections/cards
+        var fadeEls = document.querySelectorAll('.fade-up');
+        if ('IntersectionObserver' in window && fadeEls.length) {
+            var fadeObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        fadeObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15
+            });
+            fadeEls.forEach(function(el) {
+                fadeObserver.observe(el);
+            });
+        } else {
+            // Fallback: if no IntersectionObserver support — показать всё сразу
+            fadeEls.forEach(function(el) {
+                el.classList.add('show');
+            });
+        }
+
+    });
+
+    function handleContact(e) {
+        e.preventDefault();
+        var name = document.getElementById('name').value.trim();
+        var contact = document.getElementById('contactField').value.trim();
+        var message = document.getElementById('message').value.trim();
+
+        var subject = encodeURIComponent('Запрос по проекту — R&I Digital');
+        var body = encodeURIComponent(
+            'Имя / ник: ' + name + '\n' +
+            'Контакт: ' + contact + '\n\n' +
+            'Задача:\n' + message
+        );
+
+        window.location.href = 'mailto:romaignashevich@gmail.com?subject=' + subject + '&body=' + body;
+
+        var map = translations[currentLang] || translations.ru;
+        var contactStatus = document.getElementById('contactStatus');
+        if (contactStatus && map.contactHintAfter) {
+            contactStatus.textContent = map.contactHintAfter;
+        }
+    }
+</script>
+</body>
+</html>
