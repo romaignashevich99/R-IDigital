@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <title>R&I Digital — портфолио</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="description" content="Портфолио R&I Digital — примеры лендингов, мини-сайтов и Telegram-ботов.">
+    <meta property="og:title" content="R&I Digital — портфолио">
+    <meta property="og:description" content="Реальные проекты: лендинги, мини-сервисы, Telegram-боты.">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" href="favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #f5f5f7;
+            --bg-elevated: #ffffff;
+            --bg-soft: #e5e5ea;
+            --text-main: #111111;
+            --text-muted: #6e6e73;
+            --border-soft: #d2d2d7;
+            --accent: #0071e3;
+        }
+
+        html[data-theme="dark"] {
+            --bg: radial-gradient(circle at top, #1c1c1e 0, #050505 55%);
+            --bg-elevated: #111111;
+            --bg-soft: #1c1c1e;
+            --text-main: #f5f5f7;
+            --text-muted: #a1a1a6;
+            --border-soft: #2c2c2e;
+            --accent: #0a84ff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            scroll-behavior: smooth;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at top, #e8ecff 0, #f5f5f7 55%, #f5f5f7 100%);
+            color: var(--text-main);
+            position: relative;
+        }
+        html[data-theme="dark"] body { background: var(--bg); }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            background-image: repeating-linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.035) 0,
+                rgba(0, 0, 0, 0.035) 1px,
+                transparent 1px,
+                transparent 120px
+            );
+        }
+        html[data-theme="dark"] body::before {
+            background-image: repeating-linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0.05) 0,
+                rgba(255, 255, 255, 0.05) 1px,
+                transparent 1px,
+                transparent 120px
+            );
+        }
+
+        .pixel-corner {
+            position: fixed;
+            right: 16px;
+            bottom: 16px;
+            width: 42px;
+            height: 42px;
+            pointer-events: none;
+            opacity: 0.65;
+            z-index: -1;
+            background-image:
+                linear-gradient(90deg, rgba(0,0,0,0.09) 1px, transparent 1px),
+                linear-gradient(180deg, rgba(0,0,0,0.09) 1px, transparent 1px);
+            background-size: 4px 4px;
+            border-radius: 12px;
+            mask-image: radial-gradient(circle at top left, black 0, black 65%, transparent 70%);
+        }
+        html[data-theme="dark"] .pixel-corner {
+            background-image:
+                linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px),
+                linear-gradient(180deg, rgba(255,255,255,0.14) 1px, transparent 1px);
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(18px);
+            background: color-mix(in srgb, #f5f5f7 78%, transparent);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+        }
+        html[data-theme="dark"] header {
+            background: color-mix(in srgb, #050505 80%, transparent);
+            border-bottom-color: rgba(255,255,255,0.05);
+        }
+
+        .header-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 12px 20px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .logo-mark {
+            height: 32px;
+            width: auto;
+        }
+        .logo-name {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .logo-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        nav {
+            display: flex;
+            gap: 18px;
+            font-size: 13px;
+        }
+        nav a {
+            color: var(--text-main);
+            opacity: 0.75;
+            font-weight: 500;
+            text-decoration: none;
+            padding-bottom: 2px;
+            border-bottom: 1px solid transparent;
+        }
+        nav a:hover {
+            opacity: 1;
+            border-bottom-color: var(--text-main);
+        }
+        nav a.is-active {
+            opacity: 1;
+            border-bottom-color: var(--accent);
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .theme-toggle {
+            font-size: 12px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            background: transparent;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 32px 20px 72px;
+        }
+
+        .portfolio-hero {
+            margin-top: 12px;
+        }
+        .section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .16em;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-index {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            color: var(--text-main);
+            background: var(--bg-elevated);
+        }
+        .section-title-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: baseline;
+        }
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+        }
+        .section-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+            max-width: 320px;
+        }
+        .hero-actions {
+            margin-top: 22px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        .btn-primary {
+            border-radius: 999px;
+            padding: 9px 20px;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            background: var(--accent);
+            color: #ffffff;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .portfolio-section { margin-top: 32px; }
+        .portfolio-grid {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .portfolio-item {
+            border-radius: 24px;
+            border: 1px solid color-mix(in srgb, var(--border-soft) 70%, rgba(255,255,255,0.6) 30%);
+            background: color-mix(in srgb, var(--bg-elevated) 70%, transparent 30%);
+            backdrop-filter: blur(18px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 18px 40px rgba(15,15,15,0.12);
+        }
+        
+        .portfolio-image-wrap {
+            padding: 10px 10px 0;
+        }
+
+        .portfolio-aspect {
+            width: 100%;
+            aspect-ratio: 16 / 11;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid color-mix(in srgb, var(--border-soft) 70%, rgba(255,255,255,0.5) 30%);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .portfolio-aspect img {
+            display: none;
+        }
+
+        
+
+
+        .portfolio-meta {
+            padding: 10px 14px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .portfolio-title {
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .portfolio-tag {
+            font-size: 11px;
+            color: var(--text-muted);
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            padding: 3px 8px;
+            white-space: nowrap;
+        }
+        .portfolio-comment {
+            padding: 8px 14px 12px;
+            margin-top: 8px;
+        }
+        .portfolio-client {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .portfolio-quote {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        footer {
+            margin-top: 44px;
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(0,0,0,0.04);
+        }
+
+        @media (max-width: 880px) {
+            nav { display: none; }
+            .portfolio-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+        @media (max-width: 640px) {
+            .page { padding-inline: 16px; }
+            footer { flex-direction: column; }
+            .header-inner { padding-inline: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="pixel-corner"></div>
+
+    <header>
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <img src="ri-logo.png" alt="R&I Digital" class="logo-mark">
+                <div class="logo-text">
+                    <div class="logo-name">R&I Digital</div>
+                    <div class="logo-sub">Минималистичные сайты и боты</div>
+                </div>
+            </a>
+
+            <nav>
+                <a href="index.html#about">Обо мне</a>
+                <a href="portfolio.html" class="is-active">Портфолио</a>
+                <a href="index.html#projects">Продукты</a>
+                <a href="index.html#process">Процесс</a>
+                <a href="index.html#faq">FAQ</a>
+                <a href="index.html#contact">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page">
+        <section class="portfolio-hero">
+            <div class="section-label">
+                <span class="section-index">P1</span>
+                <span>Примеры работ</span>
+            </div>
+            <div class="section-title-row">
+                <h1 class="section-title">Портфолио R&amp;I Digital</h1>
+                <p class="section-sub">
+                    Крупные скриншоты без лишнего текста, чтобы клиент сразу видел результат.
+                </p>
+            </div>
+            <div class="hero-actions">
+                <a href="index.html#top" class="btn-primary">← На главную</a>
+            </div>
+        </section>
+
+        <section class="portfolio-section">
+            <div class="portfolio-grid">
+
+                <!-- ПРОЕКТЫ ex1–ex20
+                     Виден только если соответствующий файл существует.
+                     Лишние и невостребованные просто удалятся через onerror.
+                -->
+
+                <!-- ПРОЕКТ 1 -->
+                <article class="portfolio-item">
+                    <div class="portfolio-image-wrap">
+                        <div class="portfolio-aspect" style="background-image: url('ex1.jpg');">
+                            <img src="ex1.jpg" alt="Проект 1" onerror="this.closest('.portfolio-item').remove()">
+                        </div>
+                    </div>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-title">Проект 1</div>
+                        <div class="portfolio-tag">Лендинг</div>
+                    </div>
+                    <div class="portfolio-comment">
+                        <div class="portfolio-client">Клиент 1</div>
+                        <div class="portfolio-quote">
+                           Спасибо Вам огромное за такой шикарный проект!! Лендинг создан в максимально кратчайшие сроки с учетом всех правок, все красиво, гармонично, лаконично и со вкусом. Получился действительно достойный продукт, который можно презентовать и продвигать в массы))
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ПРОЕКТ 2 -->
+                <article class="portfolio-item">
+                    <div class="portfolio-image-wrap">
+                        <div class="portfolio-aspect" style="background-image: url('ex2.jpg');">
+                            <img src="ex2.jpg" alt="Проект 2" onerror="this.closest('.portfolio-item').remove()">
+                        </div>
+                    </div>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-title">Проект 2</div>
+                        <div class="portfolio-tag">Лендинг</div>
+                    </div>
+                    <div class="portfolio-comment">
+                        <div class="portfolio-client">Клиент 2</div>
+                        <div class="portfolio-quote">
+                            Роман, привет! Хочу сказать тебе огромное спасибо за бота в Телеграме.
+Я просила сделать помощника для рабочих задач с ИИ, а получила прямо члена команды 😄
+Бот теперь отвечает на вопросы новичков, помогает с отчётами и даже шутит иногда. Коллеги в восторге — говорят, будто у нас появился личный ассистент.
+Ты не просто код написал — ты понял, как мы работаем, и сделал инструмент, который реально облегчает жизнь. Работать с тобой было легко и приятно.
+Обязательно порекомендую тебя всем, кому нужны умные решения!
+Спасибо ещё раз ✨.
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ПРОЕКТ 3 -->
+                <article class="portfolio-item">
+                    <div class="portfolio-image-wrap">
+                        <div class="portfolio-aspect" style="background-image: url('ex3.jpg');">
+                            <img src="ex3.jpg" alt="Проект 3" onerror="this.closest('.portfolio-item').remove()">
+                        </div>
+                    </div>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-title">Проект 3</div>
+                        <div class="portfolio-tag">Лендинг</div>
+                    </div>
+                    <div class="portfolio-comment">
+                        <div class="portfolio-client">Клиент 3</div>
+                        <div class="portfolio-quote">
+                            Хочу выразить огромную благодарность Роману за разработку мини-лендинга для поиска фриланс-работы.
+Работа выполнена быстро, аккуратно и с глубоким пониманием задачи. Каждый элемент — от структуры до визуала — продуман до мелочей. Код чистый, адаптивность безупречная, результат превзошёл ожидания.
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ПРОЕКТ 4 -->
+                <article class="portfolio-item">
+                    <div class="portfolio-image-wrap">
+                        <div class="portfolio-aspect" style="background-image: url('ex4.jpg');">
+                            <img src="ex4.jpg" alt="Проект 4" onerror="this.closest('.portfolio-item').remove()">
+                        </div>
+                    </div>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-title">Проект 4</div>
+                        <div class="portfolio-tag">Лендинг</div>
+                    </div>
+                    <div class="portfolio-comment">
+                        <div class="portfolio-client">Клиент 4</div>
+                        <div class="portfolio-quote">
+                            Бота делал для себя, так что в отзывае напишу что просто доволен им максимально) 
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ПРОЕКТ 5 -->
+                <article class="portfolio-item">
+                    <div class="portfolio-image-wrap">
+                        <div class="portfolio-aspect" style="background-image: url('ex5.jpg');">
+                            <img src="ex5.jpg" alt="Проект 5" onerror="this.closest('.portfolio-item').remove()">
+                        </div>
+                    </div>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-title">Проект 5</div>
+                        <div class="portfolio-tag">Лендинг</div>
+                    </div>
+                    <div class="portfolio-comment">
+                        <div class="portfolio-client">Клиент 5</div>
+                        <div class="portfolio-quote">
+                            Отзыв клиента 5.
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ПРОЕКТЫ 6–20 (можно дописать по необходимости) -->
+                <!-- Оставляю ещё несколько, чтобы у тебя был запас -->
+
+                <article class="portfolio-item">
+                    <div class="portfolio-image-wrap">
+                        <div class="portfolio-aspect" style="background-image: url('ex6.jpg');">
+                            <img src="ex6.jpg" alt="Проект 6" onerror="this.closest('.portfolio-item').remove()">
+                        </div>
+                    </div>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-title">Проект 6</div>
+                        <div class="portfolio-tag">Лендинг</div>
+                    </div>
+                    <div class="portfolio-comment">
+                        <div class="portfolio-client">Клиент 6</div>
+                        <div class="portfolio-quote">Отзыв клиента 6.</div>
+                    </div>
+                </article>
+
+                <article class="portfolio-item">
+                    <div class="portfolio-image-wrap">
+                        <div class="portfolio-aspect" style="background-image: url('ex7.jpg');">
+                            <img src="ex7.jpg" alt="Проект 7" onerror="this.closest('.portfolio-item').remove()">
+                        </div>
+                    </div>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-title">Проект 7</div>
+                        <div class="portfolio-tag">Лендинг</div>
+                    </div>
+                    <div class="portfolio-comment">
+                        <div class="portfolio-client">Клиент 7</div>
+                        <div class="portfolio-quote">Отзыв клиента 7.</div>
+                    </div>
+                </article>
+
+                <article class="portfolio-item">
+                    <div class="portfolio-image-wrap">
+                        <div class="portfolio-aspect" style="background-image: url('ex8.jpg');">
+                            <img src="ex8.jpg" alt="Проект 8" onerror="this.closest('.portfolio-item').remove()">
+                        </div>
+                    </div>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-title">Проект 8</div>
+                        <div class="portfolio-tag">Лендинг</div>
+                    </div>
+                    <div class="portfolio-comment">
+                        <div class="portfolio-client">Клиент 8</div>
+                        <div class="portfolio-quote">Отзыв клиента 8.</div>
+                    </div>
+                </article>
+
+                <article class="portfolio-item">
+                    <div class="portfolio-image-wrap">
+                        <div class="portfolio-aspect" style="background-image: url('ex9.jpg');">
+                            <img src="ex9.jpg" alt="Проект 9" onerror="this.closest('.portfolio-item').remove()">
+                        </div>
+                    </div>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-title">Проект 9</div>
+                        <div class="portfolio-tag">Лендинг</div>
+                    </div>
+                    <div class="portfolio-comment">
+                        <div class="portfolio-client">Клиент 9</div>
+                        <div class="portfolio-quote">Отзыв клиента 9.</div>
+                    </div>
+                </article>
+
+                <article class="portfolio-item">
+                    <div class="portfolio-image-wrap">
+                        <div class="portfolio-aspect" style="background-image: url('ex10.jpg');">
+                            <img src="ex10.jpg" alt="Проект 10" onerror="this.closest('.portfolio-item').remove()">
+                        </div>
+                    </div>
+                    <div class="portfolio-meta">
+                        <div class="portfolio-title">Проект 10</div>
+                        <div class="portfolio-tag">Лендинг</div>
+                    </div>
+                    <div class="portfolio-comment">
+                        <div class="portfolio-client">Клиент 10</div>
+                        <div class="portfolio-quote">Отзыв клиента 10.</div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <footer>
+            <span>R&amp;I Digital, 2025 — минималистичные сайты и Telegram-боты.</span>
+            <span>Сделано вручную, без конструкторов.</span>
+        </footer>
+    </main>
+
+    <script>
+    </script>
+</body>
+</html>
